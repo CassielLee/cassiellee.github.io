@@ -1,0 +1,1909 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="React源码解读[一], 咸鱼翻身之路">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="baidu-site-verification" content="code-Zt9FIKkSin" />
+    <meta name="google-site-verification" content="code-Zt9FIKkSin" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>React源码解读[一] | 咸鱼翻身之路</title>
+    <link rel="icon" type="image/png" href="/CassielLee/CassielLee.github.io/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/css/my.css">
+
+    <script src="/CassielLee/CassielLee.github.io/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/CassielLee/CassielLee.github.io/atom.xml" title="咸鱼翻身之路" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/CassielLee/CassielLee.github.io/" class="waves-effect waves-light">
+                    
+                    <img src="/CassielLee/CassielLee.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">咸鱼翻身之路</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/CassielLee/CassielLee.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">咸鱼翻身之路</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/CassielLee/CassielLee.github.io/medias/featureimages/8.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">React源码解读[一]</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/CassielLee/CassielLee.github.io/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/CassielLee/CassielLee.github.io/tags/JS/">
+                                <span class="chip bg-color">JS</span>
+                            </a>
+                        
+                            <a href="/CassielLee/CassielLee.github.io/tags/React%E6%BA%90%E7%A0%81/">
+                                <span class="chip bg-color">React源码</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/" class="post-category">
+                                web前端
+                            </a>
+                        
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/React/" class="post-category">
+                                React
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-12-28
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.9k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/CassielLee/CassielLee.github.io/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本人前端小白一枚，刚工作半年，在这段时间里也先后跟了不少项目，也接触到了不少框架，但是都是基于 React 的，所以想趁着有时间来看一下 React 源码，增强自己对 React 这个框架的理解。源码的学习方式主要是 视频 + 技术文章。望与诸君共勉~</p>
+<h3 id="React-基础与-API"><a href="#React-基础与-API" class="headerlink" title="React 基础与 API"></a>React 基础与 API</h3><p>早期的 react 源码中 react 和 react-dom 在同一个包，后来为了做平台移植性，将 react 与 react-dom 分拆，相信做过 react-native 的同学都知道，我们写 react-native 项目时，也是用的 react，只是表现层用了 react-native 的组件与 api。所以看 react 源码我们先分析 react 对于 api 的定义。<br>React 的源码都在 packages 文件夹中，首先我们来看一看 React 源码中的 React.js 文件，其路径为：<code>packages/react/src/React.js</code>。这个文件不长，大概只有一百多行，那 React 在这个文件中到底做了什么呢？我们不妨看看，下面展示的是部分代码：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> ReactVersion <span class="token keyword">from</span> <span class="token string">"shared/ReactVersion"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+  <span class="token constant">REACT_FRAGMENT_TYPE</span><span class="token punctuation">,</span>
+  <span class="token constant">REACT_PROFILER_TYPE</span><span class="token punctuation">,</span>
+  <span class="token constant">REACT_STRICT_MODE_TYPE</span><span class="token punctuation">,</span>
+  <span class="token constant">REACT_SUSPENSE_TYPE</span><span class="token punctuation">,</span>
+  <span class="token constant">REACT_SUSPENSE_LIST_TYPE</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"shared/ReactSymbols"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Component<span class="token punctuation">,</span> PureComponent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./ReactBaseClasses"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> createRef <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./ReactCreateRef"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> forEach<span class="token punctuation">,</span> map<span class="token punctuation">,</span> count<span class="token punctuation">,</span> toArray<span class="token punctuation">,</span> only <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./ReactChildren"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+  createElement<span class="token punctuation">,</span>
+  createFactory<span class="token punctuation">,</span>
+  cloneElement<span class="token punctuation">,</span>
+  isValidElement<span class="token punctuation">,</span>
+  jsx
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./ReactElement"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> createContext <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./ReactContext"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> lazy <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./ReactLazy"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> forwardRef <span class="token keyword">from</span> <span class="token string">"./forwardRef"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> memo <span class="token keyword">from</span> <span class="token string">"./memo"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+  useCallback<span class="token punctuation">,</span>
+  useContext<span class="token punctuation">,</span>
+  useEffect<span class="token punctuation">,</span>
+  useImperativeHandle<span class="token punctuation">,</span>
+  useDebugValue<span class="token punctuation">,</span>
+  useLayoutEffect<span class="token punctuation">,</span>
+  useMemo<span class="token punctuation">,</span>
+  useReducer<span class="token punctuation">,</span>
+  useRef<span class="token punctuation">,</span>
+  useState<span class="token punctuation">,</span>
+  useResponder<span class="token punctuation">,</span>
+  useTransition<span class="token punctuation">,</span>
+  useDeferredValue
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./ReactHooks"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>从上述代码可以看到<code>import { Component, PureComponent } from "./ReactBaseClasses";</code>，这说明 React 从<code>ReactBaseClasses</code>这个文件中引入了<code>Component</code>和<code>PureComponent</code>，这两个名字我们并不陌生，因为我们在写代码的时候，除了函数式组件，我们开头的第一句代码都通常是：<code>class extends from Compontent/PureCompontent</code>。</p>
+<ol>
+<li><h4 id="Component-和-PureComponent"><a href="#Component-和-PureComponent" class="headerlink" title="Component 和 PureComponent"></a>Component 和 PureComponent</h4>由 React.js 文件代码我们知道，<code>Component</code>和<code>PureComponent</code>都是从<code>ReactBaseClasses</code>这个文件中引入的，所以我们打开这个文件，可以看到<code>Component</code>和<code>PureComponent</code>相应的定义：</li>
+</ol>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
+ * Base class helpers for the updating state of a component.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">Component</span><span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> context<span class="token punctuation">,</span> updater</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>props <span class="token operator">=</span> props<span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>context <span class="token operator">=</span> context<span class="token punctuation">;</span>
+  <span class="token comment">// If a component has string refs, we will assign a different object later.</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>refs <span class="token operator">=</span> emptyObject<span class="token punctuation">;</span>
+  <span class="token comment">// We initialize the default updater but the real one gets injected by the</span>
+  <span class="token comment">// renderer.</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>updater <span class="token operator">=</span> updater <span class="token operator">||</span> ReactNoopUpdateQueue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 部分代码省略……</span>
+<span class="token keyword">function</span> <span class="token function">ComponentDummy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token class-name">ComponentDummy</span><span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token class-name">Component</span><span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+<span class="token comment">/**
+ * Convenience component with default shallow equality check for sCU.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">PureComponent</span><span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> context<span class="token punctuation">,</span> updater</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>props <span class="token operator">=</span> props<span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>context <span class="token operator">=</span> context<span class="token punctuation">;</span>
+  <span class="token comment">// If a component has string refs, we will assign a different object later.</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>refs <span class="token operator">=</span> emptyObject<span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>updater <span class="token operator">=</span> updater <span class="token operator">||</span> ReactNoopUpdateQueue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> pureComponentPrototype <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">PureComponent</span><span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ComponentDummy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+pureComponentPrototype<span class="token punctuation">.</span>constructor <span class="token operator">=</span> PureComponent<span class="token punctuation">;</span>
+<span class="token comment">// Avoid an extra prototype jump for these methods.</span>
+Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>pureComponentPrototype<span class="token punctuation">,</span> <span class="token class-name">Component</span><span class="token punctuation">.</span>prototype<span class="token punctuation">)</span><span class="token punctuation">;</span>
+pureComponentPrototype<span class="token punctuation">.</span>isPureReactComponent <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上述代码中可以看到，两者的定义其实是一样的，区别在于<code>PureComponent</code>在定义完之后给原型上多绑定了一些内容<code>ComponentDummy</code>，这个函数是起一个桥接转换的作用。在定义的最后给<code>PureComponent</code>增加了一个标志位<code>isPureReactComponent</code>，并将其设置为 <code>true</code>。我们可以在源代码文件夹中搜索一下这个单词，发现其出现在<code>ReactFiberClassComponent</code>这个文件中，具体代码片段如下：<br><img src="https://i.loli.net/2019/12/29/FyPZS3QOtELKRhl.png" alt="isPureReactComponent"></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span>ctor<span class="token punctuation">.</span>prototype <span class="token operator">&amp;&amp;</span> ctor<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>isPureReactComponent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token operator">!</span><span class="token function">shallowEqual</span><span class="token punctuation">(</span>oldProps<span class="token punctuation">,</span> newProps<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">shallowEqual</span><span class="token punctuation">(</span>oldState<span class="token punctuation">,</span> newState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>通过判断<code>isPureReactComponent</code>的值是否为<code>true</code>来决定是否进行<code>shallowEqual(浅对比)</code>，如果值为<code>true</code>的话，则通过比较新旧 state 和 props 的值来判断是否需要更新。类似的对比还有一个地方，就是<code>shouldComponentUpdate</code>。</p>
+<ol start="2">
+<li><h4 id="createRef-和-forwardRef"><a href="#createRef-和-forwardRef" class="headerlink" title="createRef 和 forwardRef"></a>createRef 和 forwardRef</h4><ol>
+<li><h5 id="createRef"><a href="#createRef" class="headerlink" title="createRef"></a>createRef</h5>接着往下看代码，发现又从<code>ReactCreateRef</code>中<code>import</code>了一个<code>createRef</code>。那这个是干嘛的呢？我们打开<code>ReactCreateRef.js</code>文件，发现这个文件很简单。它定了一个<code>refObject</code>，然后定义了一个<code>current</code>属性并将其指定为<code>null</code>。最终在初始化的时候，它会把当前元素绑定在<code>current</code>这个属性上。用户可以根据这个属性获取当前元素。</li>
+</ol>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> type <span class="token punctuation">{</span> RefObject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"shared/ReactTypes"</span><span class="token punctuation">;</span>
+
+<span class="token comment">// an immutable object with a single mutable value</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createRef</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> RefObject <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> refObject <span class="token operator">=</span> <span class="token punctuation">{</span>
+    current<span class="token operator">:</span> <span class="token keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>__DEV__<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Object<span class="token punctuation">.</span><span class="token function">seal</span><span class="token punctuation">(</span>refObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> refObject<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 在新版的 ref 用法中，其抛弃了字符串的赋值方式，以后只能用以下两种方式使用 ref:</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 在组件实例化的时候，给组件赋值一个React.createRef()，在DOM绑定的时候通过this.ref的方式或者是以函数形式去传递</span>
+<span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>ref <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createRef</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// this.ref</span>
+    <span class="token keyword">return</span> <span class="token operator">&lt;</span>div ref<span class="token operator">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>ref<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+    <span class="token comment">// 或者是函数形式</span>
+    <span class="token keyword">return</span> <span class="token operator">&lt;</span>div ref<span class="token operator">=</span><span class="token punctuation">{</span><span class="token parameter">node</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>ref <span class="token operator">=</span> node<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li><h5 id="forwardRef"><a href="#forwardRef" class="headerlink" title="forwardRef"></a>forwardRef</h5>那与<code>createRef</code>相关的就是<code>forwardRef</code>了，我们打开<code>forwardRef.js</code>，他的源码比较复杂，我们先不看和开发环境相关的内容，即不看<code>if (__DEV__) {...}</code>，然后这个代码可以写成：</li>
+</ol>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token constant">REACT_FORWARD_REF_TYPE</span><span class="token punctuation">,</span> <span class="token constant">REACT_MEMO_TYPE</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'shared/ReactSymbols'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> warningWithoutStack <span class="token keyword">from</span> <span class="token string">'shared/warningWithoutStack'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> forwardRef<span class="token operator">&lt;</span>Props<span class="token punctuation">,</span> ElementType<span class="token operator">:</span> React$ElementType<span class="token operator">&gt;</span><span class="token punctuation">(</span>
+  <span class="token function-variable function">render</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">props<span class="token operator">:</span> Props<span class="token punctuation">,</span> ref<span class="token operator">:</span> React$Ref<span class="token operator">&lt;</span>ElementType<span class="token operator">&gt;</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> React$Node<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>__DEV__<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      $$<span class="token keyword">typeof</span><span class="token operator">:</span> <span class="token constant">REACT_FORWARD_REF_TYPE</span><span class="token punctuation">,</span>
+      render<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 可以看到它最终返回的是一个<code>$$typeof: REACT_FORWARD_REF_TYPE</code>，它的组件类型，然后返回了<code>render</code>。可以看到 render 是在<code>forwardRef</code>中间返回，所以<code>forwardRef</code>他是解决组件之间 Props 的传递问题。类似的，antd 中很多组件也使用到了 <code>forwardRef</code> 。比如 form 组件中，我们经常会使用<code>@Form.create()</code>这样一个高阶组件(装饰器)来将 form 组件相关的 props 操作绑定到我们封装的组件上。例如：<code>this.props.validate</code>。</p>
+</li>
+<li><h4 id="ReactChildren"><a href="#ReactChildren" class="headerlink" title="ReactChildren"></a>ReactChildren</h4><p> 从<code>ReactChildren</code>这个名词我们就能看出他是一个复数，是多个存在的。它里面有一些操作，我们可以将其类比于数组，数组有 forEach、map 这些方法，<code>ReactChildren</code>也有，只不过它的实现方式比较巧妙，他用到了递归。我们以<code>forEachChildren</code>这个方法为例,从代码可以看出当他的<code>children</code>为<code>null</code>的时候，直接<code>return</code>；</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">forEachChildren</span><span class="token punctuation">(</span><span class="token parameter">children<span class="token punctuation">,</span> forEachFunc<span class="token punctuation">,</span> forEachContext</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>children <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> children<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">const</span> traverseContext <span class="token operator">=</span> <span class="token function">getPooledTraverseContext</span><span class="token punctuation">(</span>
+    <span class="token keyword">null</span><span class="token punctuation">,</span>
+    <span class="token keyword">null</span><span class="token punctuation">,</span>
+    forEachFunc<span class="token punctuation">,</span>
+    forEachContext
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">traverseAllChildren</span><span class="token punctuation">(</span>children<span class="token punctuation">,</span> forEachSingleChild<span class="token punctuation">,</span> traverseContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">releaseTraverseContext</span><span class="token punctuation">(</span>traverseContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 当<code>children</code>不为<code>null</code>的时候，他会往后执行，会定义一个<code>traverseContext(遍历上下文)</code>，利用<code>getPooledTraverseContext</code>方法来获取遍历上下文对象，<code>traverseContextPool</code>将相当于存放<code>traverseContext</code>的一个池子，如果池子不为空的话，就弹出<code>pop()</code>最后一个上下文对象，并对其进行一些赋值操作后返回。如果池子为空，也将返回一个对象。</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//省略部分代码...</span>
+<span class="token keyword">const</span> traverseContextPool <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">getPooledTraverseContext</span><span class="token punctuation">(</span>
+  <span class="token parameter">mapResult<span class="token punctuation">,</span>
+  keyPrefix<span class="token punctuation">,</span>
+  mapFunction<span class="token punctuation">,</span>
+  mapContext</span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>traverseContextPool<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> traverseContext <span class="token operator">=</span> traverseContextPool<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    traverseContext<span class="token punctuation">.</span>result <span class="token operator">=</span> mapResult<span class="token punctuation">;</span>
+    traverseContext<span class="token punctuation">.</span>keyPrefix <span class="token operator">=</span> keyPrefix<span class="token punctuation">;</span>
+    traverseContext<span class="token punctuation">.</span>func <span class="token operator">=</span> mapFunction<span class="token punctuation">;</span>
+    traverseContext<span class="token punctuation">.</span>context <span class="token operator">=</span> mapContext<span class="token punctuation">;</span>
+    traverseContext<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> traverseContext<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      result<span class="token operator">:</span> mapResult<span class="token punctuation">,</span>
+      keyPrefix<span class="token operator">:</span> keyPrefix<span class="token punctuation">,</span>
+      func<span class="token operator">:</span> mapFunction<span class="token punctuation">,</span>
+      context<span class="token operator">:</span> mapContext<span class="token punctuation">,</span>
+      count<span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 获取到<code>traverseContext</code>之后再往下执行，会遇到一个<code>traverseAllChildren</code>函数，这个函数同样是判断<code>children</code>是否为<code>null</code>，如果为<code>null</code>直接返回 0 ，如果不为<code>null</code>，通过<code>traverseAllChildrenImpl</code>方法进行下一步操作(这个方法的定义代码比较长，这里就不贴出来了)，从代码中可以看出，这个方法定义了一个叫<code>type</code>的类型值来获取 <code>children</code>的类型，如果这个<code>type</code>的值是<code>undefined</code>或者是<code>boolean</code>的话，直接将<code>children</code>置为<code>null</code>并返回，这也是为什么我们在书写组件的时候如果传入的是空或者是<code>true/false</code>，会直接渲染成空。</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">traverseAllChildren</span><span class="token punctuation">(</span><span class="token parameter">children<span class="token punctuation">,</span> callback<span class="token punctuation">,</span> traverseContext</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>children <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token function">traverseAllChildrenImpl</span><span class="token punctuation">(</span>children<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> callback<span class="token punctuation">,</span> traverseContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 除了<code>type</code>之外，还有一个<code>invokeCallback</code>变量表示是否执行<code>callback</code>，默认值是<code>false</code>，即不执行。如果<code>children</code>为<code>null</code>的时候，就将其置为<code>true</code>，执行<code>callback</code>，如果<code>children</code>不为<code>null</code>的时候，则进一步判断<code>children</code>类型，若类型是<code>string</code>则不做处理；若类型是<code>number</code>，也将<code>invokeCallback</code>置为<code>true</code>；若<code>children</code>的类型是<code>object</code>的时候，则进一步判断<code>children</code>的<code>$$typeof</code>属性，如果它的值是<code>REACT_ELEMENT_TYPE</code>则不做处理，如果它的值是<code>REACT_PORTAL_TYPE</code>则将<code>invokeCallback</code>置为<code>true</code>。最终根据<code>invokeCallback</code>的值判断是否执行<code>callback</code>。<br> 继续往下看代码，我们会看到它定义了一些变量：<code>child、nextName、subtreeCount、nextNamePrefix</code>等，然后我们会看见如下代码，判断<code>children</code>是否是数组，如果是则会再次调用<code>traverseAllChildrenImpl</code>这个函数，到此我们就发现这个函数调用了它自己，也就是递归。</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>children<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> children<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    child <span class="token operator">=</span> children<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    nextName <span class="token operator">=</span> nextNamePrefix <span class="token operator">+</span> <span class="token function">getComponentKey</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    subtreeCount <span class="token operator">+=</span> <span class="token function">traverseAllChildrenImpl</span><span class="token punctuation">(</span>
+      child<span class="token punctuation">,</span>
+      nextName<span class="token punctuation">,</span>
+      callback<span class="token punctuation">,</span>
+      traverseContext
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...省略的代码</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 完成遍历之后，则利用<code>releaseTraverseContext</code>函数来释放<code>traverseContext</code>遍历上下文对象，即将<code>traverseContext</code>所有属性置为<code>null</code>，<code>count</code>赋值为 0，并在<code>traverseContextPool</code>没满的时候将其压进<code>traverseContextPool</code>中。</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">releaseTraverseContext</span><span class="token punctuation">(</span><span class="token parameter">traverseContext</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  traverseContext<span class="token punctuation">.</span>result <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  traverseContext<span class="token punctuation">.</span>keyPrefix <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  traverseContext<span class="token punctuation">.</span>func <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  traverseContext<span class="token punctuation">.</span>context <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  traverseContext<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>traverseContextPool<span class="token punctuation">.</span>length <span class="token operator">&lt;</span> <span class="token constant">POOL_SIZE</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    traverseContextPool<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>traverseContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 该文件中也包含一些其他类似于数组的 api ：forEach, map, count, toArray, only ，这些方法都是对于 reactChildren 的处理。</p>
+</li>
+<li><h4 id="createElement-与-cloneElement"><a href="#createElement-与-cloneElement" class="headerlink" title="createElement 与 cloneElement"></a>createElement 与 cloneElement</h4><p> 继续看 React.js 文件，我们会发现它从<code>ReactElement</code>中引进了<code>createElement,createFactory,cloneElement,isValidElement,jsx</code>，打开<code>ReactElement.js</code>文件，首先找到<code>createElement</code>的定义，它的定义也很简单，传入三个参数：<code>type、config、children</code>，然后根据这三个参数创建对应的<code>ReactElement</code>。所以以前我们在写代码的时候会用到：</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"div"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token string">"app"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"hello world!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p> 但是，<code>ReactElement</code>到底是什么呢？我们在文件中找到其定义，它需要传入的参数有<code>type, key, ref, self, source, owner, props</code>，定义一个<code>element</code>并将传入的参数赋值给其相应的属性，最后返回这个<code>element</code>。现在我们在使用 react 的时候似乎很少见 <code>createElement</code> 方法，这是因为在我们现在项目中大多用上了 <code>jsx</code>，大多时候是 <code>babel</code> 帮我们将 jsx 转换为 <code>createElement</code>。</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">ReactElement</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> key<span class="token punctuation">,</span> ref<span class="token punctuation">,</span> self<span class="token punctuation">,</span> source<span class="token punctuation">,</span> owner<span class="token punctuation">,</span> props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> element <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment">// This tag allows us to uniquely identify this as a React Element</span>
+    $$<span class="token keyword">typeof</span><span class="token operator">:</span> <span class="token constant">REACT_ELEMENT_TYPE</span><span class="token punctuation">,</span>
+    <span class="token comment">// Built-in properties that belong on the element</span>
+    type<span class="token operator">:</span> type<span class="token punctuation">,</span>
+    key<span class="token operator">:</span> key<span class="token punctuation">,</span> <span class="token comment">//用于后期diff算法</span>
+    ref<span class="token operator">:</span> ref<span class="token punctuation">,</span>
+    props<span class="token operator">:</span> props<span class="token punctuation">,</span>
+    <span class="token comment">// Record the component responsible for creating this element.</span>
+    _owner<span class="token operator">:</span> owner <span class="token comment">// 私有属性，它只是用作去标记，做一个记录</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>__DEV__<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//...省略</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> element<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 另外，我们来看一看，<code>createFactory</code>，由它的定义可以看出，它借用了<code>createElement</code>，对其用 bind 进行绑定，并将其 type 属性指定为传入的 type，然后返回，它其实创建的也是一个<code>ReactElement</code>。</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createFactory</span><span class="token punctuation">(</span><span class="token parameter">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> factory <span class="token operator">=</span> <span class="token function">createElement</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// Expose the type on the factory and the prototype so that it can be</span>
+  <span class="token comment">// easily accessed on elements. E.g. `&lt;Foo /&gt;.type === Foo`.</span>
+  <span class="token comment">// This should not be named `constructor` since this may not be the function</span>
+  <span class="token comment">// that created the element, and it may not even be a constructor.</span>
+  <span class="token comment">// Legacy hook: remove it</span>
+  factory<span class="token punctuation">.</span>type <span class="token operator">=</span> type<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> factory<span class="token punctuation">;</span> <span class="token comment">// 其实是ReactElement类型的</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> <code>cloneElement</code>与<code>createElement</code>类似，顾名思义，<code>cloneElement</code>所作的就是去克隆我们的这个组件。它进行相应的克隆操作之后，最后返回一个<code>ReactElement</code>。</p>
+</li>
+<li><h4 id="memo"><a href="#memo" class="headerlink" title="memo"></a>memo</h4><p> memo 是函数组件中类似 pureComponent 的用法，浅比较函数式组件的 props，确定是否需要更新。</p>
+ <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> memo<span class="token operator">&lt;</span>Props<span class="token operator">&gt;</span><span class="token punctuation">(</span>
+  type<span class="token operator">:</span> React$ElementType<span class="token punctuation">,</span>
+  compare<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">oldProps<span class="token operator">:</span> Props<span class="token punctuation">,</span> newProps<span class="token operator">:</span> Props</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> boolean
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>__DEV__<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...省略</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    $$<span class="token keyword">typeof</span><span class="token operator">:</span> <span class="token constant">REACT_MEMO_TYPE</span><span class="token punctuation">,</span>
+    type<span class="token punctuation">,</span>
+    compare<span class="token operator">:</span> compare <span class="token operator">===</span> <span class="token keyword">undefined</span> <span class="token operator">?</span> <span class="token keyword">null</span> <span class="token operator">:</span> compare
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h3 id="Fiber、FiberRoot"><a href="#Fiber、FiberRoot" class="headerlink" title="Fiber、FiberRoot"></a>Fiber、FiberRoot</h3><p>FiberRoot 和 Fiber 是 React 改良之后一些精巧的数据结构。Fiber 其实就是一个节点，FiberRoot 就是会去指明 root 的一个根节点。和 Fiber 相关内容定义在<code>packages/react-reconciler/src/RactFiber.js</code>中。</p>
+<ol>
+<li><h4 id="Fiber"><a href="#Fiber" class="headerlink" title="Fiber"></a>Fiber</h4><p>在 ReactFiber.js 文件中搜索 Fiber 找到其定义；</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// Fiber对应一个需要被处理或者已经处理的组件，组件与Fiber可以是一对多关系</span>
+type Fiber <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">|</span>
+  <span class="token comment">// 不同的组件类型</span>
+  tag<span class="token operator">:</span> WorkTag<span class="token punctuation">,</span>
+  <span class="token comment">// ReactElement里面的key，当前child的唯一标识</span>
+  key<span class="token operator">:</span> <span class="token keyword">null</span> <span class="token operator">|</span> string<span class="token punctuation">,</span>
+  <span class="token comment">// ReactElement.type，我们调用`createElement`的第一个参数</span>
+  <span class="token comment">// 用于在当前child协调期间保存标识</span>
+  elementType<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// The resolved function/class/ associated with this fiber.</span>
+  <span class="token comment">// 异步组件resolved之后返回的内容，一般是`function`或者`class`，表示函数或class</span>
+  type<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// The local state associated with this fiber.</span>
+  <span class="token comment">// 跟当前Fiber相关本地状态（若在浏览器环境中，该值为DOM节点）</span>
+  stateNode<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// 指向他在Fiber节点树中的`parent`，用来在处理完这个节点之后向上返回</span>
+  <span class="token keyword">return</span><span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 指向自身的第一个子节点</span>
+  <span class="token comment">// 单链表树结构</span>
+  child<span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 指向自身的兄弟节点</span>
+  <span class="token comment">// 兄弟节点的return与之指向同一个父节点</span>
+  sibling<span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  index<span class="token operator">:</span> number<span class="token punctuation">,</span>
+  <span class="token comment">// ref属性</span>
+  ref<span class="token operator">:</span>
+    <span class="token operator">|</span> <span class="token keyword">null</span>
+    <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">handle<span class="token operator">:</span> mixed</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token punctuation">{</span> _stringRef<span class="token operator">:</span> <span class="token operator">?</span>string <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token operator">|</span> RefObject<span class="token punctuation">,</span>
+  <span class="token comment">// 新的更新带来的props</span>
+  pendingProps<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// 上次渲染完成后的props</span>
+  memoizedProps<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// 队列，存放该Fiber对应的组件产生的Update</span>
+  updateQueue<span class="token operator">:</span> UpdateQueue<span class="token operator">&lt;</span>any<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 上一次渲染时的state</span>
+  memoizedState<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// 列表，存放这个Fiber依赖的context</span>
+  firstContextDependency<span class="token operator">:</span> ContextDependency<span class="token operator">&lt;</span>mixed<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 用来描述当前Fiber和他子树的`Bitfield`</span>
+  <span class="token comment">// 共存的模式表示这个子树是否默认是异步渲染的</span>
+  <span class="token comment">// Fiber被创建的时候他会继承父Fiber</span>
+  <span class="token comment">// 其他的标识也可以在创建的时候被设置</span>
+  <span class="token comment">// 但是在创建之后不应该再被修改，特别是他的子Fiber创建之前</span>
+  mode<span class="token operator">:</span> TypeOfMode<span class="token punctuation">,</span>
+  <span class="token comment">// Effect</span>
+  <span class="token comment">// 用来记录Side Effect</span>
+  effectTag<span class="token operator">:</span> SideEffectTag<span class="token punctuation">,</span>
+  <span class="token comment">// 单链表用来快速查找下一个side effect</span>
+  nextEffect<span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 子树中第一个side effect</span>
+  firstEffect<span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 子树中最后一个side effect</span>
+  lastEffect<span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 代表任务在未来的哪个时间点应该被完成</span>
+  <span class="token comment">// 不包括他的子树产生的任务</span>
+  expirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  <span class="token comment">// 快速确定子树中是否有不在等待的变化</span>
+  childExpirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  <span class="token comment">// 在Fiber树更新的过程中，每个Fiber都会有一个跟其对应的Fiber，current &lt;==&gt; workInProgress</span>
+  <span class="token comment">//在渲染完成后，保存fiber</span>
+  alternate<span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 调试相关，收集每个Fiber和子树渲染时间</span>
+  actualDuration<span class="token operator">?</span><span class="token operator">:</span> number<span class="token punctuation">,</span>
+  actualStartTime<span class="token operator">?</span><span class="token operator">:</span> number<span class="token punctuation">,</span>
+  selfBaseDuration<span class="token operator">?</span><span class="token operator">:</span> number<span class="token punctuation">,</span>
+  treeBaseDuration<span class="token operator">?</span><span class="token operator">:</span> number<span class="token punctuation">,</span>
+  _debugID<span class="token operator">?</span><span class="token operator">:</span> number<span class="token punctuation">,</span>
+  _debugSource<span class="token operator">?</span><span class="token operator">:</span> Source <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  _debugOwner<span class="token operator">?</span><span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  _debugIsCurrentlyTiming<span class="token operator">?</span><span class="token operator">:</span> boolean
+<span class="token operator">|</span><span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h4 id="FiberRoot"><a href="#FiberRoot" class="headerlink" title="FiberRoot"></a>FiberRoot</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">type BaseFiberRootProperties <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">|</span>
+  <span class="token comment">// 挂载节点，在ReactDOM.render方法接收的第二个参数</span>
+  containerInfo<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// 在持久更新时用到该属性，换言之不支持增量更新平台，在react-dom中不涉及</span>
+  pendingChildren<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// 当前应用对应的Fiber，即Root Fiber</span>
+  current<span class="token operator">:</span> Fiber<span class="token punctuation">,</span>
+
+  <span class="token comment">// 以下顺序表示优先级</span>
+  <span class="token comment">// 1) 还没提交(committed)的任务</span>
+  <span class="token comment">// 2) 还未提交的挂起任务</span>
+  <span class="token comment">// 3) 未提交的可能被挂起的任务</span>
+  <span class="token comment">// 在提交时被挂起最老和最新任务</span>
+  earliestSuspendedTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  latestSuspendedTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  <span class="token comment">// The earliest and latest priority levels that are not known to be suspended.</span>
+  <span class="token comment">// 不确定是否会挂起的最老和最新任务（所有任务初始化都是该状态）</span>
+  earliestPendingTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  latestPendingTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  <span class="token comment">// The latest priority level that was pinged by a resolved promise and can be retried.</span>
+  latestPingedTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+
+  <span class="token comment">// 如果有抛出错误且此时没有更多更新，此时我们将尝试在处理错误前同步从头渲染</span>
+  <span class="token comment">// 在renderRoot出现无法处理的错误时，该值会被置为`true`</span>
+  didError<span class="token operator">:</span> boolean<span class="token punctuation">,</span>
+
+  <span class="token comment">// 等待提交任务的`expirationTime`属性</span>
+  pendingCommitExpirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  <span class="token comment">// 已经完成的任务的FiberRoot对象，如果你只有一个Root，那他永远只可能是这个Root对应的Fiber，或者是null</span>
+  <span class="token comment">// 在commit阶段，只会处理这个值对应的任务</span>
+  finishedWork<span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 在任务被挂起时，通过setTimeout设置的返回内容，用来下一次如果有新的任务挂起时清理还没触发的timeout</span>
+  timeoutHandle<span class="token operator">:</span> TimeoutHandle <span class="token operator">|</span> NoTimeout<span class="token punctuation">,</span>
+  <span class="token comment">// 顶层context对象，只有主动调用renderSubtreeIntoContainer时才会使用到</span>
+  context<span class="token operator">:</span> Object <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  pendingContext<span class="token operator">:</span> Object <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 用来确定在第一次渲染时，是否需要合并</span>
+  hydrate<span class="token operator">:</span> boolean<span class="token punctuation">,</span>
+  <span class="token comment">// 当前root对象上所剩余的过期时间</span>
+  nextExpirationTimeToWorkOn<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  <span class="token comment">// 当前更新对应的过期时间</span>
+  expirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  <span class="token comment">// List of top-level batches. This list indicates whether a commit should be</span>
+  <span class="token comment">// deferred. Also contains completion callbacks.</span>
+  <span class="token comment">// 顶层批处理任务，该变量指明一个commit是否应该被推迟处理，同时包含了完成处理后的回调</span>
+  firstBatch<span class="token operator">:</span> Batch <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// root之间关联的链表结构</span>
+  nextScheduledRoot<span class="token operator">:</span> FiberRoot <span class="token operator">|</span> <span class="token keyword">null</span>
+<span class="token operator">|</span><span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过 Fiber ，我们能够将 JS 渲染的这样一个单线程语言，让它表现为一个多线程，因为在计算机面前无非是时间和空间两者之间的妥协。它里面借助了链表、数等数据结构，以后遇到的时候再详细介绍。</p>
+</li>
+</ol>
+<h3 id="effectTags、ReactWorkTag、sideEffects"><a href="#effectTags、ReactWorkTag、sideEffects" class="headerlink" title="effectTags、ReactWorkTag、sideEffects"></a>effectTags、ReactWorkTag、sideEffects</h3><p>这三个文件主要定义了 react 中操作相关的类型，值得一提的是，react 中类型的定义与组合很巧妙，如果之前未使用过这种思路，可以在权限设计系统中试用该方法。</p>
+<ol>
+<li><h4 id="effectTags"><a href="#effectTags" class="headerlink" title="effectTags"></a>effectTags</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow
+ */</span>
+
+<span class="token keyword">export</span> type SideEffectTag <span class="token operator">=</span> number<span class="token punctuation">;</span>
+
+<span class="token comment">// Don't change these two values. They're used by React Dev Tools.</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> NoEffect <span class="token operator">=</span> <span class="token comment">/*              */</span> <span class="token number">0b00000000000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> PerformedWork <span class="token operator">=</span> <span class="token comment">/*         */</span> <span class="token number">0b00000000001</span><span class="token punctuation">;</span>
+
+<span class="token comment">// You can change the rest (and add more).</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Placement <span class="token operator">=</span> <span class="token comment">/*             */</span> <span class="token number">0b00000000010</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Update <span class="token operator">=</span> <span class="token comment">/*                */</span> <span class="token number">0b00000000100</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> PlacementAndUpdate <span class="token operator">=</span> <span class="token comment">/*    */</span> <span class="token number">0b00000000110</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Deletion <span class="token operator">=</span> <span class="token comment">/*              */</span> <span class="token number">0b00000001000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> ContentReset <span class="token operator">=</span> <span class="token comment">/*          */</span> <span class="token number">0b00000010000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Callback <span class="token operator">=</span> <span class="token comment">/*              */</span> <span class="token number">0b00000100000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> DidCapture <span class="token operator">=</span> <span class="token comment">/*            */</span> <span class="token number">0b00001000000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Ref <span class="token operator">=</span> <span class="token comment">/*                   */</span> <span class="token number">0b00010000000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Snapshot <span class="token operator">=</span> <span class="token comment">/*              */</span> <span class="token number">0b00100000000</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Update &amp; Callback &amp; Ref &amp; Snapshot</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> LifecycleEffectMask <span class="token operator">=</span> <span class="token comment">/*   */</span> <span class="token number">0b00110100100</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Union of all host effects</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> HostEffectMask <span class="token operator">=</span> <span class="token comment">/*        */</span> <span class="token number">0b00111111111</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> Incomplete <span class="token operator">=</span> <span class="token comment">/*            */</span> <span class="token number">0b01000000000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> ShouldCapture <span class="token operator">=</span> <span class="token comment">/*         */</span> <span class="token number">0b10000000000</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h4 id="ReactWorkTag"><a href="#ReactWorkTag" class="headerlink" title="ReactWorkTag"></a>ReactWorkTag</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> FunctionComponent <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> ClassComponent <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> IndeterminateComponent <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment">// Before we know whether it is function or class</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> HostRoot <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span> <span class="token comment">// Root of a host tree. Could be nested inside another node.</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> HostPortal <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span> <span class="token comment">// A subtree. Could be an entry point to a different renderer.</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> HostComponent <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> HostText <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Fragment <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Mode <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> ContextConsumer <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> ContextProvider <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> ForwardRef <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Profiler <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> SuspenseComponent <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> MemoComponent <span class="token operator">=</span> <span class="token number">14</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> SimpleMemoComponent <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> LazyComponent <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> IncompleteClassComponent <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h4 id="sideEffects"><a href="#sideEffects" class="headerlink" title="sideEffects"></a>sideEffects</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
+* Copyright (c) Facebook, Inc. and its affiliates.
+*
+* This source code is licensed under the MIT license found in the
+* LICENSE file in the root directory of this source tree.
+*
+* @flow
+*/</span>
+
+<span class="token keyword">export</span> type SideEffectTag <span class="token operator">=</span> number<span class="token punctuation">;</span>
+
+<span class="token comment">// Don't change these two values. They're used by React Dev Tools.</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> NoEffect <span class="token operator">=</span> <span class="token comment">/*              */</span> <span class="token number">0b00000000000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> PerformedWork <span class="token operator">=</span> <span class="token comment">/*         */</span> <span class="token number">0b00000000001</span><span class="token punctuation">;</span>
+
+<span class="token comment">// You can change the rest (and add more).</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Placement <span class="token operator">=</span> <span class="token comment">/*             */</span> <span class="token number">0b00000000010</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Update <span class="token operator">=</span> <span class="token comment">/*                */</span> <span class="token number">0b00000000100</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> PlacementAndUpdate <span class="token operator">=</span> <span class="token comment">/*    */</span> <span class="token number">0b00000000110</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Deletion <span class="token operator">=</span> <span class="token comment">/*              */</span> <span class="token number">0b00000001000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> ContentReset <span class="token operator">=</span> <span class="token comment">/*          */</span> <span class="token number">0b00000010000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Callback <span class="token operator">=</span> <span class="token comment">/*              */</span> <span class="token number">0b00000100000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> DidCapture <span class="token operator">=</span> <span class="token comment">/*            */</span> <span class="token number">0b00001000000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Ref <span class="token operator">=</span> <span class="token comment">/*                   */</span> <span class="token number">0b00010000000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> Snapshot <span class="token operator">=</span> <span class="token comment">/*              */</span> <span class="token number">0b00100000000</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Update &amp; Callback &amp; Ref &amp; Snapshot</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> LifecycleEffectMask <span class="token operator">=</span> <span class="token comment">/*   */</span> <span class="token number">0b00110100100</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Union of all host effects</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> HostEffectMask <span class="token operator">=</span> <span class="token comment">/*        */</span> <span class="token number">0b00111111111</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> Incomplete <span class="token operator">=</span> <span class="token comment">/*            */</span> <span class="token number">0b01000000000</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> ShouldCapture <span class="token operator">=</span> <span class="token comment">/*         */</span> <span class="token number">0b10000000000</span><span class="token punctuation">;</span>
+Update、UpdateQueue
+<span class="token keyword">export</span> type Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 更新的过期时间</span>
+  expirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+
+  <span class="token comment">// 该tag标识更新类型</span>
+  <span class="token comment">// UpdateState -&gt; 0;</span>
+  <span class="token comment">// ReplaceState -&gt; 1;</span>
+  <span class="token comment">// ForceUpdate -&gt; 2;</span>
+  <span class="token comment">// CaptureUpdate -&gt; 3;</span>
+  tag<span class="token operator">:</span> <span class="token number">0</span> <span class="token operator">|</span> <span class="token number">1</span> <span class="token operator">|</span> <span class="token number">2</span> <span class="token operator">|</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token comment">// 更新内容，如调用setState时接收的第一个参数</span>
+  payload<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// 对应的回调函数，调用setState或render时</span>
+  callback<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> mixed<span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  <span class="token comment">// 指向下一个更新</span>
+  next<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 指向下一个side effect</span>
+  nextEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> type UpdateQueue<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 每次操作完更新后的state</span>
+  baseState<span class="token operator">:</span> State<span class="token punctuation">,</span>
+
+  <span class="token comment">// 队首的Update</span>
+  firstUpdate<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 队尾的Update</span>
+  lastUpdate<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  firstCapturedUpdate<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  lastCapturedUpdate<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  firstEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  lastEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  firstCapturedEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  lastCapturedEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h3 id="Update、UpdateQueue"><a href="#Update、UpdateQueue" class="headerlink" title="Update、UpdateQueue"></a>Update、UpdateQueue</h3><p>有了 Fiber 和 FiberRoot 这些基础的结构之后，那我们可以进行数据的更新了，更新是怎么做到的呢？我们来看一下相关的定义文件<code>packages/react-reconciler/src/RactUpdateQueue.js</code>，找到对应的代码片段。我们可以看到 Update 是一个 Node 节点，而 UpdateQueue 是对于 node 节点的一个封装。我们可以看到这个 queue 队列将 update 相关的一些处理例如更新、请求提交等等全部放在了队列中，然后根据优先级的排列去进行 update 的操作更新。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">export</span> type Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 更新的过期时间，对于update整个操作的一个时间轮询</span>
+  expirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  suspenseConfig<span class="token operator">:</span> <span class="token keyword">null</span> <span class="token operator">|</span> SuspenseConfig<span class="token punctuation">,</span>
+
+  <span class="token comment">// 该tag标识更新类型</span>
+  <span class="token comment">// UpdateState -&gt; 0</span>
+  <span class="token comment">// ReplaceState -&gt; 1</span>
+  <span class="token comment">// ForceUpdate -&gt; 2</span>
+  <span class="token comment">// CaptureUpdate -&gt; 3</span>
+  tag<span class="token operator">:</span> <span class="token number">0</span> <span class="token operator">|</span> <span class="token number">1</span> <span class="token operator">|</span> <span class="token number">2</span> <span class="token operator">|</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token comment">// 更新内容</span>
+  payload<span class="token operator">:</span> any<span class="token punctuation">,</span>
+  <span class="token comment">// 对应的回调函数，调用setState或render时</span>
+  callback<span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> mixed<span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  <span class="token comment">// 指向下一个更新</span>
+  next<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 指向下一个 side effect</span>
+  nextEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  <span class="token comment">//DEV only</span>
+  priority<span class="token operator">?</span><span class="token operator">:</span> ReactPriorityLevel
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> type UpdateQueue<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 每次操作完更新后的state</span>
+  baseState<span class="token operator">:</span> State<span class="token punctuation">,</span>
+
+  <span class="token comment">// 队首的Update</span>
+  firstUpdate<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token comment">// 队尾的Update</span>
+  lastUpdate<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  firstCapturedUpdate<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  lastCapturedUpdate<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  firstEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  lastEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+  firstCapturedEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  lastCapturedEffect<span class="token operator">:</span> Update<span class="token operator">&lt;</span>State<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">null</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av76817600?from=search&amp;seid=11472440174649647730">React 源码解读视频</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/BBZleINeDjYZBAL1p-xN4A">React 源码解读【一】API 复习与基础</a></li>
+<li><a href="https://github.com/Walker-Leee/react-learn-code-v16.12.0">对应的 React 源码版本</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/628d5514b145">React 中的 Ref</a></li>
+</ul>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>React 源码的基础部分就介绍到这里，这才只是刚刚开始，文中有很多地方没有介绍清楚，就等到以后再遇到的时候在介绍，希望我能坚持下去！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/CassielLee/CassielLee.github.io/about" rel="external nofollow noreferrer">CassielLee</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://github.com/CassielLee/CassielLee.github.io/CassielLee/CassielLee.github.io/2019/12/28/react-yuan-ma-jie-du-yi/">https://github.com/CassielLee/CassielLee.github.io/CassielLee/CassielLee.github.io/2019/12/28/react-yuan-ma-jie-du-yi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/CassielLee/CassielLee.github.io/about" target="_blank">CassielLee</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/CassielLee/CassielLee.github.io/tags/JS/">
+                                    <span class="chip bg-color">JS</span>
+                                </a>
+                            
+                                <a href="/CassielLee/CassielLee.github.io/tags/React%E6%BA%90%E7%A0%81/">
+                                    <span class="chip bg-color">React源码</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/CassielLee/CassielLee.github.io/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/CassielLee/CassielLee.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/CassielLee/CassielLee.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/CassielLee/CassielLee.github.io/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/CassielLee/CassielLee.github.io/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/CassielLee/CassielLee.github.io/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '183eb6019033cb0a93b7',
+        clientSecret: 'bd211c21c45cf611eced52155698eacb9d1f027c',
+        repo: 'CassielLee.github.io',
+        owner: 'CassielLee',
+        admin: "CassielLee",
+        id: '2019-12-28T23-34-32',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/CassielLee/CassielLee.github.io/2019/12/29/javascript-chu-li-this-de-ji-chong-fang-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/CassielLee/CassielLee.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="JavaScript处理this指向的几种方式">
+                        
+                        <span class="card-title">JavaScript处理this指向的几种方式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-12-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    web前端
+                                </a>
+                            
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/JS/" class="post-category">
+                                    JS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/JS/">
+                        <span class="chip bg-color">JS</span>
+                    </a>
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/this%E6%8C%87%E5%90%91/">
+                        <span class="chip bg-color">this指向</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/CassielLee/CassielLee.github.io/2019/12/25/javascript-zhi-zheng-ze-biao-da-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/CassielLee/CassielLee.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="JavaScript之正则表达式">
+                        
+                        <span class="card-title">JavaScript之正则表达式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    web前端
+                                </a>
+                            
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/JS/" class="post-category">
+                                    JS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/JS/">
+                        <span class="chip bg-color">JS</span>
+                    </a>
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                        <span class="chip bg-color">正则表达式</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 咸鱼翻身之路<br />'
+            + '文章作者: CassielLee<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/CassielLee/CassielLee.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/CassielLee/CassielLee.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/CassielLee/CassielLee.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/CassielLee/CassielLee.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/CassielLee/CassielLee.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/CassielLee/CassielLee.github.io/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/CassielLee/CassielLee.github.io/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2021</span>
+            
+            <span id="year">2019</span>
+            <a href="/CassielLee/CassielLee.github.io/about" target="_blank">CassielLee</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">76.9k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv" style='display:none'>
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv" style='display:none'>
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/CassielLee" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:467999785@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=467999785" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 467999785" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/CassielLee/CassielLee.github.io/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+        var pvcountOffset = 80000;  // 初始化首次数据
+        var uvcountOffset = 20000;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }
+        }
+    });
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/CassielLee/CassielLee.github.io/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/CassielLee/CassielLee.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/libs/aos/aos.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/CassielLee/CassielLee.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/CassielLee/CassielLee.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/CassielLee/CassielLee.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/CassielLee/CassielLee.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/CassielLee/CassielLee.github.io/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+</html>

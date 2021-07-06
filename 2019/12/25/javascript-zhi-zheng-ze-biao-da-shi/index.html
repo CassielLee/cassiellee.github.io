@@ -1,0 +1,1777 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="JavaScript之正则表达式, 咸鱼翻身之路">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="baidu-site-verification" content="code-Zt9FIKkSin" />
+    <meta name="google-site-verification" content="code-Zt9FIKkSin" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>JavaScript之正则表达式 | 咸鱼翻身之路</title>
+    <link rel="icon" type="image/png" href="/CassielLee/CassielLee.github.io/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/css/my.css">
+
+    <script src="/CassielLee/CassielLee.github.io/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/CassielLee/CassielLee.github.io/atom.xml" title="咸鱼翻身之路" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/CassielLee/CassielLee.github.io/" class="waves-effect waves-light">
+                    
+                    <img src="/CassielLee/CassielLee.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">咸鱼翻身之路</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/CassielLee/CassielLee.github.io/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/CassielLee/CassielLee.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">咸鱼翻身之路</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/CassielLee/CassielLee.github.io/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/CassielLee/CassielLee.github.io/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">JavaScript之正则表达式</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/CassielLee/CassielLee.github.io/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/CassielLee/CassielLee.github.io/tags/JS/">
+                                <span class="chip bg-color">JS</span>
+                            </a>
+                        
+                            <a href="/CassielLee/CassielLee.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                                <span class="chip bg-color">正则表达式</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/" class="post-category">
+                                web前端
+                            </a>
+                        
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/JS/" class="post-category">
+                                JS
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-12-25
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.4k
+                </div>
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/CassielLee/CassielLee.github.io/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近做的几个需求都是和表单相关，需要涉及到一些输入规则校验，笔者本身对这一块不是特别熟悉，所以借这个机会结合网上的一些资料，对 JavaScript 正则表达式做一次完整的梳理。<br>​<br><strong>正则表达式(Regular expression)<strong>是一组由字母和符号组成的特殊文本, 它可以用来从文本中找出满足你想要的格式的句子。正则表达式的本质是</strong>匹配模式</strong>，要么匹配<strong>字符</strong>，要么匹配<strong>位置</strong>。</p>
+<h4 id="可视化工具："><a href="#可视化工具：" class="headerlink" title="可视化工具："></a>可视化工具：</h4><ol>
+<li><p><strong>正则表达式可视化</strong></p>
+<p><strong><a target="_blank" rel="noopener" href="https://jex.im/regulex/">Regulex</a></strong></p>
+<p><strong><a target="_blank" rel="noopener" href="https://regexper.com/">Regexper</a></strong></p>
+</li>
+<li><p><strong>文本测试可视化</strong></p>
+<p><strong><a target="_blank" rel="noopener" href="https://regexr.com/">Regexr</a></strong></p>
+</li>
+</ol>
+<p>​ 正则表达式是绝大部分编程语言中的内建模块，是有必要掌握的基础知识。有的同学对正则表达式不熟悉，只会写简单的正则，稍微复杂一点的只能靠复制粘贴，这样很难保证正则表达式的正确性。在遇到需要维护的复杂正则的时候，也可能因为看不懂而无从下手。</p>
+<h3 id="正则表达式的字符匹配"><a href="#正则表达式的字符匹配" class="headerlink" title="正则表达式的字符匹配"></a>正则表达式的字符匹配</h3><ol>
+<li><h4 id="模糊匹配"><a href="#模糊匹配" class="headerlink" title="模糊匹配"></a>模糊匹配</h4><p> ​ 如果正则只有精确匹配是没多大意义的，比如 /hello/，也只能匹配字符串中的 “hello” 这个子串。而正则表达式的强大则在于它的模糊匹配，这里介绍两个方向上的“模糊”：横向模糊和纵向模糊。</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>横向模糊</strong></p>
+<p>横向模糊指的是，一个正则可匹配的字符串的长度不是固定的，可以是多种情况的。其实现的方式是使用量词。譬如 {m,n}，表示连续出现最少 m 次，最多 n 次。</p>
+<p>例如：<code>/ab{2,5}c/g</code>，其可视化形式为：</p>
+<p><img src="https://i.loli.net/2019/12/29/TXcxWs6wL495jEk.png" alt="/ab{2,5}c/g可视化"></p>
+<p>代码测试：</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /ab{2,5}c/g;
+const string = "abc abbc abbbc abbbbc abbbbbc abbbbbbc";
+console.log(string.match(regex));
+// =&gt; ["abbc", "abbbc", "abbbbc", "abbbbbc"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><strong>纵向模糊</strong></p>
+<p>纵向模糊指的是，一个正则匹配的字符串，具体到某一位字符时，它可以不是某个确定的字符，可以有多种可能。其实现的方式是使用字符组。譬如 [abc]，表示该字符是可以字符 “a”、”b”、”c” 中的任何一个。</p>
+<p>例如：<code>/a[123]b/</code>，其可视化形式为：</p>
+<p><img src="https://i.loli.net/2019/12/26/3R4Qmu8paLIewGo.png" alt="/a[123]b/可视化"></p>
+<p>代码测试：</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /a[123]b/g;
+const string = "a0b a1b a2b a3b a4b";
+console.log(string.match(regex));
+// =&gt; ["a1b", "a2b", "a3b"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<ol start="2">
+<li><h4 id="字符组"><a href="#字符组" class="headerlink" title="字符组"></a>字符组</h4><p><strong>字符组</strong>表示匹配组内的<strong>一个</strong>字符。例如：[abc]，匹配 “a”、”b”、”c” 其中之一。</p>
+<ol>
+<li><h5 id="范围表示法"><a href="#范围表示法" class="headerlink" title="范围表示法"></a><strong>范围表示法</strong></h5><p>当字符组中的字符较多的时候，可以用<strong>范围表示法</strong>来表示一定范围内的匹配字符。也就是用**连字符-**来进行省略和简写。例如：<code>[56789ABCDEFG]</code>可以用<code>[5-9A-G]</code>来表示。</p>
+<p><strong>注意：</strong>如果要匹配的连字符中包含**连字符-**的话，需要注意连字符即要么放在表达式开头，要么放在结尾，要么转义。总之不要让引擎认为是范围表示法。</p>
+</li>
+<li><h5 id="排除字符组"><a href="#排除字符组" class="headerlink" title="排除字符组"></a><strong>排除字符组</strong></h5><p>纵向模糊匹配，还有一种情形就是，某位字符可以是任何东西，但就不能是 “a”、”b”、”c”。这个时候就需要用到<strong>排除字符组</strong>，即将 <strong>^（脱字符）</strong>放在字符组的第一位，表示求反的意思。例如：例如 <code>[^abc]</code>，表示的是一个除 “a”、”b”、”c”之外的任意一个字符。</p>
+</li>
+<li><h5 id="常见简写"><a href="#常见简写" class="headerlink" title="常见简写"></a><strong>常见简写</strong></h5><p><img src="https://i.loli.net/2019/12/26/txAa5DLC1dpwHGk.png" alt="常见简写形式"></p>
+</li>
+</ol>
+</li>
+</ol>
+<p>如何匹配任意字符？可以使用 <code>[\d\D]</code>、<code>[\w\W]</code>、<code>[\s\S]</code> 和 <code>[^]</code> 中任何的一个。<br>以上各字符组对应的可视化形式：<img src="https://i.loli.net/2019/12/26/9aeorfLCFAygKjs.png" alt="字符组可视化"></p>
+<ol start="3">
+<li><h4 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h4><p>量词也称<strong>重复</strong>。在掌握 {m,n} 的准确含义后，只需要记住一些简写形式。</p>
+<ol>
+<li><h5 id="简写形式"><a href="#简写形式" class="headerlink" title="简写形式"></a>简写形式</h5><img src="https://i.loli.net/2019/12/26/Ioc5L1vEYNnluJQ.png" alt="量词简写形式"></li>
+</ol>
+<p>上述量词对应的可视化形式为：<img src="https://i.loli.net/2019/12/26/UFWq4TYBQIc5awX.png" alt="量词可视化"></p>
+<ol start="2">
+<li><h5 id="贪婪匹配与惰性匹配"><a href="#贪婪匹配与惰性匹配" class="headerlink" title="贪婪匹配与惰性匹配"></a>贪婪匹配与惰性匹配</h5><ul>
+<li>贪婪匹配。例如：<code>/\d{3,7}/</code>,会尽可能多匹配，有 4 个就匹配 4 个，有 3 个就匹配 3 个。</li>
+<li>惰性匹配。例如：<code>/\d{3,7}?/</code>,会尽可能少匹配，有 3 个匹配后就不再继续。</li>
+</ul>
+<p>代码测试：</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const r1 = /\d{3,7}/g;
+const r2 = /\d{3,7}?/g;
+const testString = "123 1234 12 12345 1 123456";
+console.log(testString.match(r1)); //[ '123', '1234', '12345', '123456' ]
+console.log(testString.match(r2)); //[ '123', '123', '123', '123', '456' ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过在量词后面加个问号就能实现惰性匹配，因此所有惰性匹配情形如下：<br><img src="https://i.loli.net/2019/12/26/6573tpSjKDfbGNJ.png" alt="惰性量词和贪婪量词"></p>
+</li>
+</ol>
+</li>
+<li><h4 id="多选分支"><a href="#多选分支" class="headerlink" title="多选分支"></a>多选分支</h4><p>一个模式可以实现横向和纵向模糊匹配，而多选分支可以支持多个子模式任选其一。但是分支结构是惰性的。<br><strong>语法：</strong>(p1|p2|p3)，其中 p1、p2 和 p3 是子模式，用 <strong>|（管道符）</strong>分隔，表示其中任何之一。<br>例如：表达式<code>/hello|world/</code>的可视化形式为：<br><img src="https://i.loli.net/2019/12/26/gHFlfwLh2mpBo7y.png" alt="多选分支可视化"><br>惰性分支的惰性表现*(当前面的分支匹配上了，后面的分支就不再尝试了)*：</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 多选分支的惰性表现
+const r1 = /biubiu|biubiuuu/g;
+const r2 = /biubiuuu|biubiu/g;
+const testString = "biubiuuu";
+console.log(testString.match(r1)); //[ 'biubiu' ]
+console.log(testString.match(r2)); //[ 'biubiuuu' ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h4 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h4><p><strong>要求：</strong>从代码<code>&lt;div id="container" class="main"&gt;&lt;/div&gt;</code>中提取出<code>id="container"</code></p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">//尝试一：
+const r = /id=".*"/;
+const string = '&lt;div id="container" class="main"&gt;&lt;/div&gt;';
+console.log(string.match(r)[0]); //id="container" class="main"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://i.loli.net/2019/12/26/Mu9DO2JCKgWnfXr.png" alt="尝试一可视化形式"><br>因为 . 是通配符，本身就匹配双引号的，而量词 * 又是贪婪的，会尽可能多的匹配，所以当遇到 *container* 后面双引号时，不会停下来而是会继续匹配，直到遇到最后一个双引号为止。</p>
+<p>使用惰性匹配，可以达到目的但效率低，有<strong>回溯</strong>问题。</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">//尝试二：
+const r = /id=".*?"/;
+const string = '&lt;div id="container" class="main"&gt;&lt;/div&gt;';
+console.log(string.match(r)[0]); //id="container"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>优化如下，通过使用^(脱字符)来保证两个双引号中间不会出现第三个双引号：</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">//尝试三：
+const r = /id="[^"]*"/;
+const string = '&lt;div id="container" class="main"&gt;&lt;/div&gt;';
+console.log(string.match(r)[0]); //id="container"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://i.loli.net/2019/12/26/H7V4AhumZ8OcbPn.png" alt="优化可视化"></p>
+</li>
+</ol>
+<h3 id="正则表达式的位置匹配"><a href="#正则表达式的位置匹配" class="headerlink" title="正则表达式的位置匹配"></a>正则表达式的位置匹配</h3><ol>
+<li><h4 id="什么是位置"><a href="#什么是位置" class="headerlink" title="什么是位置?"></a>什么是位置?</h4><p><strong>位置（锚）</strong>是相邻字符之间的位置。比如，下图中箭头所指的地方：<br><img src="https://i.loli.net/2019/12/26/p6sxW1kzeacrJME.png" alt="位置"></p>
+</li>
+<li><h4 id="如何匹配位置？"><a href="#如何匹配位置？" class="headerlink" title="如何匹配位置？"></a>如何匹配位置？</h4><p>在 ES5 中，共有 6 个锚：^、$、\b、\B、(?=p)、(?!p)，则相应的可视化形式为：<br><img src="https://i.loli.net/2019/12/26/T9zvfxDBSiAZsjY.png" alt="位置可视化"></p>
+<ol>
+<li><h5 id="和"><a href="#和" class="headerlink" title="^ 和 $"></a>^ 和 $</h5><p>^（脱字符）匹配开头，在多行匹配中匹配行开头。<br>$（美元符号）匹配结尾，在多行匹配中匹配行结尾。</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">//单行匹配
+const result1 = "hello".replace(/^|$/g, "🤣");
+console.log(result1);
+//🤣hello🤣
+
+//多行匹配
+const result2 = "hello\nworld".replace(/^|$/gm, "🤣");
+console.log(result2);
+/*
+ * 🤣hello🤣
+ * 🤣world🤣
+ */<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="b-和-B"><a href="#b-和-B" class="headerlink" title="\b 和 \B"></a>\b 和 \B</h5><p>\b 是单词边界，具体就是 \w 与 \W 之间的位置，也包括 \w 与 ^ 之间的位置，和 \w 与 $ 之间的位置。<br>\B 就是 \b 的反面的意思，非单词边界。在字符串中所有位置中，扣掉 \b，剩下的都是 \B 的。具体说来就是 \w 与 \w、 \W 与 \W、^ 与 \W，\W 与 $ 之间的位置。</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// \b
+const result1 = "[JS] Lesson_01.mp4".replace(/\b/g, "😍");
+console.log(result1);
+//[😍JS😍] 😍Lesson_01😍.😍mp4😍
+
+// \B
+const result2 = "[JS] Lesson_01.mp4".replace(/\B/g, "😍");
+console.log(result2);
+//😍[J😍S]😍 L😍e😍s😍s😍o😍n😍_😍0😍1.m😍p😍4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="p-和-p"><a href="#p-和-p" class="headerlink" title="(?=p) 和 (?!p)"></a>(?=p) 和 (?!p)</h5><p>二者的学名分别是 positive lookahead 和 negative lookahead。中文翻译分别是正向先行断言和负向先行断言。(?=p)，其中 p 是一个子模式，即 p 前面的位置，或者说，该位置后面的字符要匹配 p。而 (?!p) 就是 (?=p) 的反面意思。</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// (?=p)
+// (?=l) 表示 l 字符前面的位置
+const result1 = "hello".replace(/(?=l)/g, "😊");
+console.log(result1);
+// =&gt; he😊l😊lo
+// (?!p)
+// (?!l) 表示不是 l 字符的字符前面的位置
+const result2 = "hello".replace(/(?!l)/g, "😊");
+console.log(result2);
+// =&gt; 😊h😊ell😊o😊<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ES5 之后的版本，会支持 (?&lt;=p) 和 (?&lt;!p)。(?&lt;=p) 表示 p 后面的位置，而 (?&lt;!p) 表示的意思则与其相反。</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// (?&lt;=p)
+// (?&lt;=l) 表示 l 字符后面的位置
+const result1 = "hello".replace(/(?&lt;=l)/g, "😉");
+console.log(result1);
+// =&gt; hel😉l😉o
+// (?&lt;!p)
+// (?&lt;!l) 表示不是 l 字符的字符后面的位置
+const result2 = "hello".replace(/(?&lt;!l)/g, "😉");
+console.log(result2);
+// =&gt; 😉h😉e😉llo😉<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+</li>
+<li><h4 id="位置的特性"><a href="#位置的特性" class="headerlink" title="位置的特性"></a>位置的特性</h4><p>我们可以将<strong>位置</strong>理解成空字符””。也就是说字符之间的位置，可以写成多个。例如：把 <code>/^hello$/</code> 写成 <code>/^^hello$$$/</code>是完全没有问题的。</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// /^hello$/
+const result1 = /^hello$/.test("hello");
+console.log(result1); // true
+// /^^hello$$$/
+const result2 = /^^hello$$$/.test("hello");
+console.log(result2); // true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h4 id="案例分析-1"><a href="#案例分析-1" class="headerlink" title="案例分析"></a>案例分析</h4><ul>
+<li>不匹配任何东西的正则：/.^/</li>
+<li>验证密码的问题：密码长度 6-16 位，由数字、小写字符和大写字母组成，但必须至少包括 2 种字符。<br>第一步：简化版(不考虑”但必须至少包括 2 种字符”这一条件)<br><code>const regex = /^[0-9A-Za-z]{6,16}$/;</code><br>第二步：判断是否包含有某一种字符(假设是数字)<br><code>const regex = /(?=.*[0-9])^[0-9A-Za-z]{6,16}\$/; //利用正向先行断言</code><br>第三步：同时包含两种字符(比如同时包含数字和小写字母，可以用 <code>(?=.*[0-9])(?=.*[a-z])</code> 来做)<br><code>const regex = /(?=.*[0-9])(?=.*[a-z])^[0-9A-Za-z]{6,16}$/;</code><br>第四步：拆分需求情况：<ul>
+<li>同时包含数字和小写字母<br><code>const regex = /(?=.*[0-9])(?=.*[a-z])^[0-9A-Za-z]{6,16}$/;</code></li>
+<li>同时包含数字和大写字母<br><code>const regex = /(?=.*[0-9])(?=.*[A-Z])^[0-9A-Za-z]{6,16}$/;</code></li>
+<li>同时包含小写字母和大写字母<br><code>const regex = /(?=.*[A-Z])(?=.*[a-z])^[0-9A-Za-z]{6,16}$/;</code></li>
+<li>同时包含数字、小写字母和大写字母<br><code>const regex=/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])^[0-9A-Za-z]{6,16}$/;</code></li>
+<li>以上的 4 种情况是或的关系（实际上，可以不用第 4 条）。<br>所以，最终答案是：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 密码验证
+const regex = /((?=.*[0-9])(?=.*[a-z])|(?=.*[0-9])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z]))^[0-9A-Za-z]{6,16}$/;
+console.log(regex.test("467664")); // false 全是数字
+console.log(regex.test("fgjghjh")); // false 全是小写字母
+console.log(regex.test("GJKHIKJL")); // false 全是大写字母
+console.log(regex.test("hl23C")); // false 不足6位
+console.log(regex.test("hl23C6+6+sdfs")); // false 有其他字符
+console.log(regex.test("hl23C66GGHsdfs556")); // false 长度超过16位
+console.log(regex.test("HJJYUU234")); // true 大写字母和数字
+console.log(regex.test("abcdEF234")); // true 三者都有<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+可视化形式：<br><img src="https://i.loli.net/2019/12/26/RCiHZ8KVOGsXWMy.png" alt="密码验证可视化"></li>
+</ul>
+</li>
+<li><strong>解读：</strong><br>上述正则只要弄懂第二步，其余步骤就可以理解了，也就是说我们只需要弄明白 <code>(?=.*[0-9])^</code> 即可。<br><code>(?=.*[0-9])^</code> 分开来看就是<code>(?=.*[0-9])</code> 和 <code>^</code>。表示开头前面还有个位置（当然也是开头，即同一个位置，和之前的空字符是同一个道理）。<code>(?=.*[0-9])</code> 表示该位置后面的字符匹配 <code>.*[0-9]</code>，即，有任何多个任意字符，后面再跟个数字。翻译成大白话，就是接下来的字符，必须包含个数字。</li>
+<li><strong>另一种解法：</strong>“至少包含两种字符”的意思就是说，不能全部都是数字，也不能全部都是小写字母，也不能全部都是大写字母。<br>利用<code>(?!p)</code><br>最终答案：<br><code>const regex = /(?!^[0-9]{6,16}$)(?!^[a-z]{6,16}$)(?!^[A-Z]{6,16}$)^[0-9A-Za-z]{6,16}$/;</code><br><img src="https://i.loli.net/2019/12/26/YIre4ENMOBgb2Gx.png" alt="另一种解法可视化"></li>
+</ul>
+</li>
+</ol>
+<h3 id="正则表达式括号的作用"><a href="#正则表达式括号的作用" class="headerlink" title="正则表达式括号的作用"></a>正则表达式括号的作用</h3><ol>
+<li><h4 id="分组和分支结构"><a href="#分组和分支结构" class="headerlink" title="分组和分支结构"></a>分组和分支结构</h4><p>分组和分支结构是括号最直接的作用，也是最原始的功能，强调括号内的正则是一个整体，即提供子表达式。</p>
+<ul>
+<li>分组，强调括号内的是一个整体</li>
+</ul>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 分组
+const regex = /(ab)+/g;
+const string = "ababa abbb ababab";
+console.log(string.match(regex)); // [ 'abab', 'ab', 'ababab' ]
+
+const regex1 = /ab+/g;
+console.log(string.match(regex1)); //[ 'ab', 'ab', 'abbb', 'ab', 'ab', 'ab' ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>分支结构，在多选分支结构 (p1|p2) 中，此处括号的作用提供了分支表达式的所有可能。<br>例如<code>/^I love (JavaScript|Regular Expression)$/</code> 和 <code>/^I love JavaScript|Regular Expression$/</code>这两个分支的可视化分别为：<br><img src="https://i.loli.net/2019/12/26/LxtDVJKONZRpf5v.png" alt="有括号可视化"><br><img src="https://i.loli.net/2019/12/26/1Xk3ZMD8G9YIqms.png" alt="无括号可视化"></li>
+</ul>
+</li>
+<li><h4 id="分组引用"><a href="#分组引用" class="headerlink" title="分组引用"></a>分组引用</h4><p>分组引用是括号的另一个重要作用，有了它，我们就可以进行数据提取，以及更强大的替换操作。<br>以日期为例。假设格式是 yyyy-mm-dd 的，我们可以先写一个简单的正则：<br><code>const regex = /\d{4}-\d{2}-\d{2}/;</code><br><img src="https://i.loli.net/2019/12/26/JrCVMvoEyBTI1qw.png" alt="日期可视化"><br>给正则表达式加上括号：<br><code>const regex = /(\d{4})-(\d{2})-(\d{2})/;</code><br><img src="https://i.loli.net/2019/12/26/R6M4vlQzXsIH8wY.png" alt="日期可视化加括号"><br>可以看到加了括号之后，多了分组编号，如 Group #1。其实正则引擎也是这么做的，在匹配过程中，给每一个分组都开辟一个空间，用来存储每一个分组匹配到的数据。<br>使用分组捕获的数据：</p>
+<ol>
+<li><h5 id="提取数据"><a href="#提取数据" class="headerlink" title="提取数据"></a>提取数据</h5>比如提取出年、月、日：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 提取数据
+const regex = /(\d{4})-(\d{2})-(\d{2})/;
+const string = "2019-12-31";
+console.log(string.match(regex));
+// ['2019-12-31','2019','12','31',index: 0,input: '2019-12-31',groups: undefined]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+返回的一个数组，第一个元素是整体匹配结果，然后是各个分组（括号里）匹配的内容，然后是匹配下标，最后是输入的文本。另外，正则表达式是否有修饰符 g，match 返回的数组格式是不一样的。</li>
+<li><h5 id="替换数据"><a href="#替换数据" class="headerlink" title="替换数据"></a>替换数据</h5>比如把 yyyy-mm-dd 格式，替换成 mm/dd/yyyy：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 替换数据
+const regex = /(\d{4})-(\d{2})-(\d{2})/;
+const string = "2019-12-31";
+const result = string.replace(regex, "$2/$3/$1");
+console.log(result); // 12/31/2019<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+其中 replace 中的，第二个参数里用 $1、$2、$3 指代相应的分组。等价于：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /(\d{4})-(\d{2})-(\d{2})/;
+const string = "2019-12-31";
+const result = string.replace(regex, function(match, year, month, day) {
+  return month + "/" + day + "/" + year;
+});
+console.log(result); // 12/31/2019<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+</li>
+<li><h4 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h4><p>除了使用相应 API 来引用分组，也可以在正则本身里引用分组。但只能引用之前出现的分组，即反向引用。可以使用 \n 来匹配捕获到的第 n 个分组。<br>例如：写一个匹配 2019-11-25 或 2019.11.25 或 2019/11/25 这三种格式日期的正则。</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 常见，无法保证分隔符前后一致
+const regex = /\d{4}(-|\/|\.)\d{2}(-|\/|\.)\d{2}/;
+const string1 = "2019-12-31";
+const string2 = "2019/12/31";
+const string3 = "2019.12.31";
+const string4 = "2019-12/31";
+console.log(regex.test(string1)); // true
+console.log(regex.test(string2)); // true
+console.log(regex.test(string3)); // true
+console.log(regex.test(string4)); // true
+
+// 反向引用
+const regex = /\d{4}(-|\/|\.)\d{2}\1\d{2}/;
+const string1 = "2019-12-31";
+const string2 = "2019/12/31";
+const string3 = "2019.12.31";
+const string4 = "2019-12/31";
+console.log(regex.test(string1)); // true
+console.log(regex.test(string2)); // true
+console.log(regex.test(string3)); // true
+console.log(regex.test(string4)); // false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>反向引用可视化形式：<br><img src="https://i.loli.net/2019/12/26/TCpsQLGKkcOWVy7.png" alt="反向引用可视化"><br>表达式里面的 \1，表示的引用之前的那个分组 <code>(-|\/|\.)</code>。不管它匹配到什么（比如 -），\1 都匹配那个同样的具体某个字符。同理可得，那么 \2 和 \3 的概念也就理解了，即分别指代第二个和第三个分组。</p>
+<ul>
+<li>括号嵌套，以左括号（开括号）为准。</li>
+</ul>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /^((\d)(\d(\d)))\1\2\3\4$/;
+const string = "1231231233";
+console.log(regex.test(string)); // true
+console.log(RegExp.$1); // 123
+console.log(RegExp.$2); // 1
+console.log(RegExp.$3); // 23
+console.log(RegExp.$4); // 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>\10 表示第 10 个分组</li>
+</ul>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /(1)(2)(3)(4)(5)(6)(7)(8)(9)(#) \10+/;
+const string = "123456789# 99999";
+const string1 = "123456789# ####";
+console.log(regex.test(string)); // =&gt; false
+console.log(regex.test(string1)); // =&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>分组后面有量词时，分组最终捕获到的数据是最后一次的匹配。</li>
+</ul>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /(\d)+ \1/;
+console.log(regex.test("12345 1")); // =&gt; false
+console.log(regex.test("12345 5")); // =&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><h4 id="非捕获括号"><a href="#非捕获括号" class="headerlink" title="非捕获括号"></a>非捕获括号</h4><p>之前文中出现的括号，都会捕获它们匹配到的数据，以便后续引用，因此也称它们是捕获型分组和捕获型分支。<br>如果只想要括号最原始的功能，但不会引用它，即，既不在 API 里引用，也不在正则里反向引用。 此时可以使用非捕获括号 (?:p)和 (?:p1|p2|p3)。</p>
+</li>
+<li><h4 id="案例分析-2"><a href="#案例分析-2" class="headerlink" title="案例分析"></a>案例分析</h4><ul>
+<li>驼峰化<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">function camelize(str) {
+  return str.replace(/[-_\s]+(.)?/g, function(match, c) {
+    return c ? c.toUpperCase() : "";
+  });
+}
+console.log(camelize("-cassiel-lee-transform"));
+// =&gt; CassielLeeTransform<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+其中分组 (.) 表示首字母。单词的界定是，前面的字符可以是多个连字符、下划线以及空白符。正则后面的 ? 的目的，是为了应对 str 尾部的字符可能不是单词字符，比如，”-cassiel-lee-transform “。</li>
+</ul>
+</li>
+</ol>
+<h3 id="正则表达式回溯法原理"><a href="#正则表达式回溯法原理" class="headerlink" title="正则表达式回溯法原理"></a>正则表达式回溯法原理</h3><p>出现回溯的原因还是在于正则引擎：JS 采用的正则引擎是 NFA ，其匹配的过程就是吃入字符之后尝试匹配，如果通过，再吃入尝试；如果不通过，就吐出，回到上一个状态，因为同一个字符串在正则中可能存在一种状态不同转化路径，这时正则引擎就换一个转化状态进行尝试，如果通过，则继续吃入字符，否则继续吐出字符，回到再上一个状态。这种尝试不成功就返回上一状态的过程，我们称为”回溯”。正则匹配的性能好坏，就看回溯的情况，回溯越多，性能越差。</p>
+<ol>
+<li><h4 id="没有回溯的匹配"><a href="#没有回溯的匹配" class="headerlink" title="没有回溯的匹配"></a>没有回溯的匹配</h4>假设正则表达式<code>/ab{1,3}c/</code>，其中子表达式 <code>b{1,3}</code> 表示 “b” 字符连续出现 1 到 3 次。其可视化形式为：<br><img src="https://i.loli.net/2019/12/27/1iKZkdtSvxyfXOH.png" alt="ab{1,3}c可视化"><br><img src="https://i.loli.net/2019/12/27/1mjyWXsGhIPvMDf.png" alt="匹配过程"></li>
+<li><h4 id="有回溯的匹配"><a href="#有回溯的匹配" class="headerlink" title="有回溯的匹配"></a>有回溯的匹配</h4>当目标字符串是 “abbc” 时，中间就有回溯:<br><img src="https://i.loli.net/2019/12/27/IApnd7tYykQjb5H.png" alt="回溯匹配"><br>图中第 5 步有红颜色，表示匹配不成功。此时 <code>b{1,3}</code> 已经匹配到了 2 个字符 “b”，准备尝试第三个时，结果发现接下来的字符是 “c”。那么就认为 <code>b{1,3}</code> 就已经匹配完毕。然后状态又回到之前的状态（即第 6 步与第 4 步一样），最后再用子表达 c 去匹配字符 “c”。当然，此时整个表达式匹配成功了。图中的第 6 步，就是“回溯”。<br>再举一个例子：正则表达式是：<code>/".*"/</code>,目标字符串是：<code>"abc"de</code>，则匹配过程如下图所示。图中省略了尝试匹配双引号失败的过程。可以看出 <code>.*</code> 是非常影响效率的。为了减少一些不必要的回溯，可以把正则修改为 <code>/"[^"]"/</code>。<br><img src="https://i.loli.net/2019/12/27/cT1JY9RyfAb3CHO.png" alt="匹配"></li>
+<li><h4 id="常见的回溯形式"><a href="#常见的回溯形式" class="headerlink" title="常见的回溯形式"></a>常见的回溯形式</h4>从上面的描述过程中可以看出正则匹配的过程本质上就是<strong>深度优先搜索算法</strong>，当路走不通时，就会回退一步或者是若干步，然后换一条路继续走，其中回退的过程就是“回溯”。也就是说在正则表达式尝试匹配失败时，接下来的一步通常就是回溯。一般来说，容易产生回溯的情况如下：<ol>
+<li><h5 id="贪婪量词"><a href="#贪婪量词" class="headerlink" title="贪婪量词"></a>贪婪量词</h5>例如：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">console.log("567".match(/(\d{1,3})(7)/));
+// =&gt; [ '567', '56', '7', index: 0, input: '567', groups: undefined ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+上述例子是和贪婪量词有关的，即<code>\d{1,3}</code>，因为其是贪婪的，尝试可能的顺序是从多往少的方向去尝试。也就是说<code>\d{1,3}</code>在匹配时，首先会尝试匹配 3 个数字，然后再看整个正则是否能匹配。不能匹配时，则吐出一个数字，即在 2 个数字的基础上，再继续尝试。如果还不行，再吐出一个，再试。如果还不行呢？只能说明匹配失败了。虽然局部匹配是贪婪的，但也要满足整体能正确匹配。如果当多个贪婪量词挨着存在，并相互有冲突时，会看匹配顺序，深度优先搜索。例如：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const string = "567";
+const regex = /(\d{1,3})(\d{1,3})/;
+console.log(string.match(regex));
+// =&gt; [ '567', '56', '7', index: 0, input: '567', groups: undefined ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="惰性量词"><a href="#惰性量词" class="headerlink" title="惰性量词"></a>惰性量词</h5>惰性量词就是在贪婪量词后面加个问号。表示尽可能少的匹配。虽然惰性量词会尽可能少的匹配，但是有些时候也会发生回溯，这种情况通常是为了整体匹配使得惰性量词匹配到的不是最少的数量。如下例中，正则表达式是<code>/^(\d{1,3}?)(\d{1,3})$/</code>,当目标字符串是”5678”是，刚好满足惰性量词<code>\d{1,3}?</code>匹配 1 个数字，贪婪量词<code>\d{1,3}</code>匹配 3 个数字，所以不会发生回溯。而当目标字符串是”12345”的时候。为了整体匹配，<code>\d{1,3}?</code>匹配到的并不只是一个数字，而是”12”两个数字。在这个匹配过程中会有回溯发生，匹配情况如下图：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 无回溯
+const string = "5678";
+const regex = /^(\d{1,3}?)(\d{1,3})$/;
+console.log(string.match(regex));
+// =&gt; [ '5678', '5', '678', index: 0, input: '5678', groups: undefined ]
+// 回溯
+const string1 = "12345";
+console.log(string1.match(regex));
+// =&gt; [ '12345', '12', '345', index: 0, input: '12345', groups: undefined ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="https://i.loli.net/2019/12/27/x8ELTmikSBsItcA.png" alt="惰性回溯"></li>
+<li><h5 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h5>前面说过分支也是惰性的，比如 <code>/biubiu|biubiubiu/</code>，去匹配字符串 “biubiubiu”，得到的结果是 “biubiu”，因为分支会一个一个尝试，如果前面的满足了，后面就不会再试了。但是如果一个分支整体不匹配，则会继续尝试剩下分支，也可以看成一种回溯。<br><img src="https://i.loli.net/2019/12/27/bN5FD7f4QEK3cse.png" alt="可视化"><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const string1 = "biubiu";
+const string2 = "biubiubiu";
+const regex = /^(?:biubiu|biubiubiu)$/;
+// 无回溯
+console.log(string1.match(regex));
+// 有回溯
+console.log(string2.match(regex));
+// =&gt; [ 'biubiu', index: 0, input: 'biubiu', groups: undefined ]
+// =&gt; [ 'biubiubiu', index: 0, input: 'biubiubiu', groups: undefined ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+</li>
+</ol>
+<h3 id="正则表达式的拆分"><a href="#正则表达式的拆分" class="headerlink" title="正则表达式的拆分"></a>正则表达式的拆分</h3><ol>
+<li><h4 id="结构和操作符"><a href="#结构和操作符" class="headerlink" title="结构和操作符"></a>结构和操作符</h4>在正则表达式中，操作符都体现在结构中，即由特殊字符和普通字符所代表的一个个特殊整体。JavaScript 正则表达式中的结构有：字符字面量、字符组、量词、锚、分组、选择分支、反向引用。具体含义以及涉及到的操作符如下：<br><img src="https://i.loli.net/2019/12/27/OSUn3FZkXIWaEjV.png" alt="结构含义"><br><img src="https://i.loli.net/2019/12/27/go4mPd6aIxKhvr8.png" alt="操作符"><br>上述操作符的优先级从上至下，由高到低。举一个例子，<code>/ab?(c|de*)+|fg/</code>，其可视化形式：<br><img src="https://i.loli.net/2019/12/27/FGaDhcg2yr7wzCo.png" alt="可视化"><br><strong>分析：</strong>首先由于括号的存在，所以，<code>(c|de*)</code> 是一个整体结构。而在 <code>(c|de*)</code> 中 e 的后面有一个量词 ，因此 e 是一个整体结构。又因为分支结构 | 优先级最低，因此 c 是一个整体、而 <code>de*</code> 是另一个整体。同理，整个正则分成了 a、b?、(…)+、f、g。而由于分支的原因，又可以分成 <code>ab?(c|de*)+</code> 和 <code>fg</code> 这两部分。</li>
+<li><h4 id="注意要点"><a href="#注意要点" class="headerlink" title="注意要点"></a>注意要点</h4><ol>
+<li><h5 id="字符串整体匹配"><a href="#字符串整体匹配" class="headerlink" title="字符串整体匹配"></a>字符串整体匹配</h5>因为是要匹配整个字符串，我们经常会在正则前后中加上锚 <code>^</code> 和 <code>\$</code> 。比如要匹配目标字符串 “abc” 或者 “bcd” 时，如果一不小心，就会写成 <code>/^abc|bcd$/</code>，事实上它匹配的模式是如下图，这是因为位置字符和一般字符的优先级要比分支结构要高，所以上述正则表达拆分开是<code>^abc</code> 和 <code>bcd$</code>两个部分。正确的表达式应该是<code>/^(abc|bcd)$/</code>，因为括号的优先级比位置和一般字符优先级高，所以括号中的内容是一个整体。<br><img src="https://i.loli.net/2019/12/27/LM5U4GrfXIeHK16.png" alt="zifuchuan"></li>
+<li><h5 id="量词连缀问题"><a href="#量词连缀问题" class="headerlink" title="量词连缀问题"></a>量词连缀问题</h5>假如要匹配一个字符串其长度是 3 的倍数，且其中只能出现 a、b、c 这三个字符。这个问题，很容易想当然的写成：<code>/^[abc]{3}+$/</code>，咋一看这样写没毛病，但是实际上在可视化的时候会报错。正确的写法应该是：<code>/^([abc]{3})+$/</code><br><img src="https://i.loli.net/2019/12/27/NYfxSoyOurcBEKg.png" alt="报错"></li>
+<li><h5 id="元字符转义问题"><a href="#元字符转义问题" class="headerlink" title="元字符转义问题"></a>元字符转义问题</h5>所谓元字符就是有特殊含义的字符。所有结构里涉及到的元字符有：<code>^、$、.、*、+、?、|、\、/、(、)、[、]、{、}、=、!、:、-</code>，当要对上述元字符本身进行匹配的时候，需要用转义符<code>\</code>进行转义。<br><strong>注意：</strong>如果要匹配 <code>\</code> 本身那也需要进行转义。<br>当字符组中含有跟字符组相关的元字符时(例如，<code>[、]、^、-</code>)，则需要在可能会引起歧义的地方进行转义。例如开头的 <code>^</code> 必须转义，不然会把整个字符组，看成反义字符组。其他符号如 <code>=、!、:、-</code> , 等符号，只要不在特殊结构中，并不需要转义。至于剩下的 <code>^、$、.、*、+、?、|、\、/</code> 等字符，只要不在字符组内，都需要转义的。</li>
+</ol>
+</li>
+<li><h4 id="案例分析-3"><a href="#案例分析-3" class="headerlink" title="案例分析"></a>案例分析</h4><strong>匹配 IPV4 地址</strong><br><code>/^((0{0,2}\d|0?\d{2}|1\d{2}|2[0-4]\d|25[0-5])\.){3}(0{0,2}\d|0?\d{2}|1\d{2}|2[0-4]\d|25[0-5])$/</code><br><strong>分析：</strong><ul>
+<li>整个表达式的结构为<code>((...)\.){3}(...)</code>，其中前后两个<code>(...)</code>的结构是一样的，假设将其称为 P 结构，所以整个表达式的结构是：<code>P结构.P结构.P结构.P结构</code>。</li>
+<li>再分析<code>(...)</code>也就是 P 结构，<code>(0{0,2}\d|0?\d{2}|1\d{2}|2[0-4]\d|25[0-5])</code>是一个分支结构，一共有五个分支：<ol>
+<li><code>0{0,2}\d</code>，匹配一位数，包括 “0” 补齐的。比如，”5”、”05”、”005”；</li>
+<li><code>0?\d{2}</code>，匹配匹配两位数，包括 “0” 补齐的；</li>
+<li><code>1\d{2}</code>，匹配 “100” 到 “199”；</li>
+<li><code>2[0-4]\d</code>，匹配 “200” 到 “249”；</li>
+<li><code>25[0-5]</code>，匹配 “250” 到 “255”;</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="正则表达式的构建"><a href="#正则表达式的构建" class="headerlink" title="正则表达式的构建"></a>正则表达式的构建</h3><ol>
+<li><h4 id="平衡法则"><a href="#平衡法则" class="headerlink" title="平衡法则"></a>平衡法则</h4>构建正则有一点非常重要，需要做到下面几点的平衡：<ul>
+<li>匹配预期的字符串</li>
+<li>不匹配非预期的字符串</li>
+<li>可读性和可维护性，可以将复杂正则拆分成多个小正则</li>
+<li>效率</li>
+</ul>
+</li>
+<li><h4 id="准确性"><a href="#准确性" class="headerlink" title="准确性"></a>准确性</h4>准确性，就是能匹配预期的目标，并且不匹配非预期的目标。所以在写正则表达式的时候，需要先知道预期目标的组成规则。<br>例如：匹配浮点数 <code>1.23、+1.23、-1.23、10、+10、-10、.2、+.2、-.2</code> 。可以看出正则分为三个部分：符号部分：<code>[+-]</code>，整数部分：<code>\d+</code>，小数部分：<code>\.\d+</code>。但是并不是每个部分都会出现，所以可以写出第一版表达式<code>/^[+-]?(\d+)?(\.\d+)?$</code>。<br>看似很容易就写出来了，但是这个正则会连空字符串<code>""</code>也能匹配到。因此可以将目标数据分为<code>1.23、+1.23、-1.23</code>、<code>10、+10、-10</code> 、<code>.2、+.2、-.2</code>三类，然后对每一类提取正则表达式，因为这三类是或的关系，所以提取公共部分后得到：<code>/^[+-]?(\d+\.\d+|\d+|\.\d+)$/</code>。</li>
+<li><h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4>正则表达式的运行通常分为五个阶段：1、编译；2、设定起始位置；3、尝试匹配；4、匹配失败的话，从下一位开始继续第 3 步；5、最终结果：匹配成功或失败。匹配的效率问题，主要出现在第 3 阶段和第 4 阶段。所以通常也从这两个方面进行优化。常见的优化手法如下：<ul>
+<li><strong>使用具体型字符组来代替通配符，来消除回溯</strong><br>例如：匹配字符串 <code>abc"123"efg</code> 中的 <code>"123"</code>，如果正则用的是：<code>/".*"/</code>,因为是贪婪匹配，所以回匹配到最后一个字符是才发现匹配错误，此时需要回溯 4 次才能匹配成功；若正则采用的是：<code>/".*?"/</code>，此时是惰性匹配，<code>*</code>会优先匹配 0 次后发现后面字符无法继续匹配，此时需要回溯 2 次才能匹配成功；所以，最好的办法是采用 <code>/"[^"]*"</code>，此时不需要回溯。其可视化形式为：<br><img src="https://i.loli.net/2019/12/27/JcdGnEgQsY64ijv.png" alt="可视化"></li>
+<li><strong>使用非捕获型分组</strong><br>因为括号的作用之一是，可以捕获分组和分支里的数据。那么就需要内存来保存它们。所以当我们不需要使用分组引用和反向引用的时候最好使用非捕获分组来减少内存的占用。</li>
+<li><strong>独立出确定字符</strong><br>例如：<code>/a+/</code> 可以用 <code>/aa*/</code> 来代替，这样在匹配的时候可以加速判断是否成功或失败。</li>
+<li><strong>提取分支公共部分</strong><br>例如：<code>/this|that/</code>修改成 <code>/th(?:is|at)/</code>，这样做可以减少匹配过程中可消除的重复。</li>
+<li><strong>减少分支的数量，缩小它们的范围</strong><br>例如：<code>/red|read/</code> 可以修改成 <code>/rea?d/</code>。但是分支和量词产生的回溯的成本是不一样的。这样优化后，可能会造成可读性降低。</li>
+</ul>
+</li>
+</ol>
+<h3 id="正则表达式编程"><a href="#正则表达式编程" class="headerlink" title="正则表达式编程"></a>正则表达式编程</h3><ol>
+<li><h4 id="正则表达式的四种操作"><a href="#正则表达式的四种操作" class="headerlink" title="正则表达式的四种操作"></a>正则表达式的四种操作</h4><p> 正则表达式是匹配模式，不管如何使用正则表达式，万变不离其宗，都需要先“匹配”。所谓匹配，就是看目标字符串里是否有满足匹配的子串。因此，“匹配”的本质就是“查找”。</p>
+<ol>
+<li><h5 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h5><p>“验证”就是判断正则表达式有没有匹配，是不是匹配上，是一种判断是否的操作。<br>比如：使用 test 判断一个字符串中是否有数字。</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /\d/;
+const string = "abc123";
+console.log(regex.test(string)); // true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="切分"><a href="#切分" class="headerlink" title="切分"></a>切分</h5><p>匹配到字符串，我们就可以进行一些操作，比如切分。“切分”，就是把目标字符串，切成一段一段的。通常可以结合 JavaScript 中的 split 函数进行切分。<br>例如：切分出不同日期格式中的数字</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /\D/;
+console.log("2017/06/26".split(regex));
+console.log("2017.06.26".split(regex));
+console.log("2017-06-26".split(regex));
+// =&gt; [ '2017', '06', '26' ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="提取"><a href="#提取" class="headerlink" title="提取"></a>提取</h5><p>虽然整体匹配上了，但有时需要提取部分匹配的数据。<br>例如：提取日期中的年月日</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /^(\d{4})\D(\d{2})\D(\d{2})$/;
+const string = "2019-12-31";
+console.log(string.match(regex));
+// ['2019-12-31','2019','12','31',index: 0,input: '2019-12-31',groups: undefined]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h5><p>找，往往不是目的，通常下一步是为了替换。在 JavaScript 中，使用 replace 进行替换。</p>
+</li>
+</ol>
+</li>
+<li><h4 id="相关-API-注意事项"><a href="#相关-API-注意事项" class="headerlink" title="相关 API 注意事项"></a>相关 API 注意事项</h4><p> 正则操作相关方法：</p>
+<ul>
+<li>String#search</li>
+<li>String#split</li>
+<li>String#match</li>
+<li>String#replace</li>
+<li>RegExp#test</li>
+<li>RegExp#exec<br>这些方法的详细用法可以参考<a target="_blank" rel="noopener" href="https://book.douban.com/subject/10549733/">《JavaScript 权威指南》</a>的第三部分。</li>
+</ul>
+<ol>
+<li><h5 id="search-和-match-的参数问题"><a href="#search-和-match-的参数问题" class="headerlink" title="search 和 match 的参数问题"></a>search 和 match 的参数问题</h5> 所有字符串实例的那 4 个方法参数都支持正则和字符串。但 search 和 match，会把字符串转换为正则。</li>
+<li><h5 id="match-返回结果的格式问题"><a href="#match-返回结果的格式问题" class="headerlink" title="match 返回结果的格式问题"></a>match 返回结果的格式问题</h5> match 返回结果的格式，与正则对象是否有修饰符 g 有关。没有 g，返回的是标准匹配格式，即，数组的第一个元素是整体匹配的内容，接下来是分组捕获的内容，然后是整体匹配的第一个下标，最后是输入的目标字符串。有 g，返回的是所有匹配的内容。当没有匹配时，不管有无 g，都返回 null。</li>
+<li><h5 id="exec-比-match-更强大"><a href="#exec-比-match-更强大" class="headerlink" title="exec 比 match 更强大"></a>exec 比 match 更强大</h5> 当正则没有 g 时，使用 match 返回的信息比较多。但是有 g 后，就没有关键的信息 index 了。而 exec 方法就能解决这个问题，它能接着上一次匹配后继续匹配。</li>
+<li><h5 id="修饰符-g，对-exex-和-test-有不同的影响"><a href="#修饰符-g，对-exex-和-test-有不同的影响" class="headerlink" title="修饰符 g，对 exex 和 test 有不同的影响"></a>修饰符 g，对 exex 和 test 有不同的影响</h5> 正则实例有一个 lastIndex 属性，表示尝试匹配时，从字符串的 lastIndex 位开始去匹配。而字符串的四个方法(search、split、match、replace)，每次匹配时，都是从 0 开始的，即 lastIndex 属性始终不变。而正则实例的两个方法 exec、test，当有修饰符 g 时，每一次匹配完成后，都会修改 lastIndex。但是如果没有 g 的时候，并不会修改 lastIndex 的值。</li>
+<li><h5 id="test-整体匹配时需要使用-和"><a href="#test-整体匹配时需要使用-和" class="headerlink" title="test 整体匹配时需要使用 ^ 和 $"></a>test 整体匹配时需要使用 ^ 和 $</h5> 因为 test 是看目标字符串中是否有子串匹配正则，即有字符串中部分匹配正则即可。 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">123</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"12345"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^123$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"12345"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; false</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^123$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"123"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="split-相关"><a href="#split-相关" class="headerlink" title="split 相关"></a>split 相关</h5><ul>
+<li>split 可以有第二个参数，表示结果数组的最大长度。</li>
+<li>正则使用分组时，结果数组中是包含分隔符的。</li>
+</ul>
+</li>
+<li><h5 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h5> 在生成正则表达式的时候，一般不推荐使用构造函数生成正则，而应该优先使用字面量。因为用构造函数会多写很多 \。 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex1 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d{4}(-|\.|\/)\d{2}\1\d{2}</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> regex2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span><span class="token string">"\\d{4}(-|\\.|\\/)\\d{2}\\1\\d{2}"</span><span class="token punctuation">,</span> <span class="token string">"g"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><h5 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h5> ES5 中的修饰符：<br> <img src="https://s2.ax1x.com/2019/12/28/lmOr59.md.png" alt="lmOr59.md.png"></li>
+<li><h5 id="正则实例对象属性"><a href="#正则实例对象属性" class="headerlink" title="正则实例对象属性"></a>正则实例对象属性</h5> 正则实例对象的属性除了 global、ingnoreCase、multiline、lastIndex 属性之外，还有一个 source 属性。在构建动态的正则表达式时，可以通过查看该属性，来确认构建出的正则表达式。</li>
+<li><h5 id="构造函数的静态属性"><a href="#构造函数的静态属性" class="headerlink" title="构造函数的静态属性"></a>构造函数的静态属性</h5>构造函数的静态属性基于所执行的最近一次正则操作而变化。除了是 $1,…,$9 之外，还有几个不太常用的属性（有兼容性问题）：<br><img src="https://www.imageoss.com/images/2019/12/28/regx-2.png" alt="regx-2.png"></li>
+</ol>
+</li>
+</ol>
+<h3 id="正则表达式的拓展及安全性"><a href="#正则表达式的拓展及安全性" class="headerlink" title="正则表达式的拓展及安全性"></a>正则表达式的拓展及安全性</h3><ol>
+<li><h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><p> 前面的内容基于 ES5 的正则表达式，在 ES6 及后续版本中，又新增了一些正则的特性，例如：</p>
+<ul>
+<li><p>ES6 增加了修饰符 u, y，u 字符用来正确处理大于\uFFFF 的 Unicode 字符。也就是说，可以正确处理四个字节的 UTF-16 编码。y 修饰符的作用与 g 修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，g 修饰符只要剩余位置中存在匹配就可，而 y 修饰符确保匹配必须从剩余的第一个位置开始。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> s <span class="token operator">=</span> <span class="token string">"aaa_aa_a"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> r1 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">a+</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> r2 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">a+</span><span class="token regex-delimiter">/</span><span class="token regex-flags">y</span></span><span class="token punctuation">;</span>
+r1<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// ["aaa"]</span>
+r2<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// ["aaa"]</span>
+r1<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// ["aa"]</span>
+r2<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// null</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>ES2018 增加了修饰符 s ，使得.可以匹配任意单个字符(包括行终止符)。</p>
+</li>
+<li><p>ES2018 支持具名组匹配及后行断言。<br>更多新特性可参考<a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/regex">ES6 入门教程——正则的拓展</a></p>
+</li>
+</ul>
+</li>
+<li><h4 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h4><p> 写得不好的正则表达式可能会导致正则表达式引擎耗费大量的时间在回溯上，达到输入长度的指数级！一个不太长的字符串（几十或几百），就能让正则引擎这辈子都跑不出匹配结果，从而导致拒绝服务攻击（Denial of Service）。因为是正则表达式导致的，缩写成 ReDoS(Regular expression Denial of Service)，即正则表达式拒绝服务攻击。<br> <strong>检测工具：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.softpedia.com/get/Programming/Other-Programming-Files/SDL-Regex-Fuzzer.shtml">SDL-Regex-Fuzzer</a>，微软开发的 ReDoS 检测工具，但已经不再维护了。</li>
+<li>ReScue，2018 年南京大学一篇关于 ReDoS 的论文使用的工具，已开源。</li>
+</ul>
+</li>
+</ol>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>这不是第一次看有关正则的知识，只是之前每次看的知识点都比较基础也不全面，这一次算是从头到尾又过了一遍正则的知识。感觉受益匪浅，希望在今后的工作中再也不要被正则难倒！<br>最后我认为学习最重要还是：纸上得来终觉浅，觉知此事要躬行。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/29707385">正则迷你书</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/entry/59f7f41ef265da4322407f37">正则回溯原理</a></li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/CassielLee/CassielLee.github.io/about" rel="external nofollow noreferrer">CassielLee</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://github.com/CassielLee/CassielLee.github.io/CassielLee/CassielLee.github.io/2019/12/25/javascript-zhi-zheng-ze-biao-da-shi/">https://github.com/CassielLee/CassielLee.github.io/CassielLee/CassielLee.github.io/2019/12/25/javascript-zhi-zheng-ze-biao-da-shi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/CassielLee/CassielLee.github.io/about" target="_blank">CassielLee</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/CassielLee/CassielLee.github.io/tags/JS/">
+                                    <span class="chip bg-color">JS</span>
+                                </a>
+                            
+                                <a href="/CassielLee/CassielLee.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                                    <span class="chip bg-color">正则表达式</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/CassielLee/CassielLee.github.io/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/CassielLee/CassielLee.github.io/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/CassielLee/CassielLee.github.io/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/CassielLee/CassielLee.github.io/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/CassielLee/CassielLee.github.io/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/CassielLee/CassielLee.github.io/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/CassielLee/CassielLee.github.io/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '183eb6019033cb0a93b7',
+        clientSecret: 'bd211c21c45cf611eced52155698eacb9d1f027c',
+        repo: 'CassielLee.github.io',
+        owner: 'CassielLee',
+        admin: "CassielLee",
+        id: '2019-12-25T17-00-19',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/CassielLee/CassielLee.github.io/2019/12/28/react-yuan-ma-jie-du-yi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/CassielLee/CassielLee.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="React源码解读[一]">
+                        
+                        <span class="card-title">React源码解读[一]</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-12-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    web前端
+                                </a>
+                            
+                            <a href="/CassielLee/CassielLee.github.io/categories/web%E5%89%8D%E7%AB%AF/React/" class="post-category">
+                                    React
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/JS/">
+                        <span class="chip bg-color">JS</span>
+                    </a>
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/React%E6%BA%90%E7%A0%81/">
+                        <span class="chip bg-color">React源码</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/CassielLee/CassielLee.github.io/2019/12/25/hexo-zhu-ti-pei-zhi-zhi-cai-dan-tu-biao-pei-zhi-wen-ti/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/CassielLee/CassielLee.github.io/medias/featureimages/2.jpg" class="responsive-img" alt="Hexo主题配置之菜单图标配置问题">
+                        
+                        <span class="card-title">Hexo主题配置之菜单图标配置问题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/CassielLee/CassielLee.github.io/categories/Hexo/" class="post-category">
+                                    Hexo
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
+                    </a>
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/github/">
+                        <span class="chip bg-color">github</span>
+                    </a>
+                    
+                    <a href="/CassielLee/CassielLee.github.io/tags/Hexo%E9%85%8D%E7%BD%AE/">
+                        <span class="chip bg-color">Hexo配置</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 咸鱼翻身之路<br />'
+            + '文章作者: CassielLee<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/CassielLee/CassielLee.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/CassielLee/CassielLee.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/CassielLee/CassielLee.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/CassielLee/CassielLee.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/CassielLee/CassielLee.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/CassielLee/CassielLee.github.io/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/CassielLee/CassielLee.github.io/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2021</span>
+            
+            <span id="year">2019</span>
+            <a href="/CassielLee/CassielLee.github.io/about" target="_blank">CassielLee</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">76.9k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv" style='display:none'>
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv" style='display:none'>
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/CassielLee" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:467999785@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=467999785" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 467999785" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/CassielLee/CassielLee.github.io/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+        var pvcountOffset = 80000;  // 初始化首次数据
+        var uvcountOffset = 20000;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }
+        }
+    });
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/CassielLee/CassielLee.github.io/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/CassielLee/CassielLee.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/libs/aos/aos.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/CassielLee/CassielLee.github.io/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/CassielLee/CassielLee.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/CassielLee/CassielLee.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/CassielLee/CassielLee.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/CassielLee/CassielLee.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/CassielLee/CassielLee.github.io/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+</html>
