@@ -478,9 +478,9 @@
 </blockquote>
 <p>而发布订阅者模式最开始是作为观者模式的一种别称，但是随着发展现在已经独立于观察者模式成为一种新的设计模式了。</p>
 <h3 id="两种模式的区别"><a href="#两种模式的区别" class="headerlink" title="两种模式的区别"></a>两种模式的区别</h3><p>首先来看下两种模式的实现结构：</p>
-<p><img src="https://img2018.cnblogs.com/blog/849589/201904/849589-20190424122505055-2083728728.png" alt="image.png"></p>
+<p><img src="image.png" alt="两种设计模式对比(图片来自互联网)"></p>
 <p>从图片可以看出，发布订阅模式是存在一个类似事件管理中心的角色，可以隔绝订阅者和发布者之间的依赖；<br>观察者模式需要两个类，一个是观察者(Observer)，一个是被观察者(Subject)。如果观察者想要观察被观察者就需要将自己加到 Subject 中进行管理，如果被观察者发生变化，再亲自去通知观察者。<br>前面已经实现了<a target="_blank" rel="noopener" href="https://cassiellee.site/2020/04/10/js-shou-xie-dai-ma-zhi-ke-li-hua-he-fa-bu-ding-yue-eventemitter/">发布订阅模式</a>，接下来就来看看观察者模式的实现</p>
-<h3 id="观察者模式介绍实现"><a href="#观察者模式介绍实现" class="headerlink" title="观察者模式介绍实现"></a>观察者模式介绍实现</h3><pre class="line-numbers language-javaScript" data-language="javaScript"><code class="language-javaScript">class Subject {
+<h3 id="观察者模式介绍实现"><a href="#观察者模式介绍实现" class="headerlink" title="观察者模式介绍实现"></a>观察者模式介绍实现</h3><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">class Subject {
   constructor() {
     this.observers = [];
   }
