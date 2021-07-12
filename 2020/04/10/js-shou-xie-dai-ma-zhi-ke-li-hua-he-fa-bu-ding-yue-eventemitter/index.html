@@ -414,8 +414,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/javaScript/">
-                                <span class="chip bg-color">javaScript</span>
+                            <a href="/tags/javaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                                <span class="chip bg-color">javaScript - 设计模式</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    327
+                    589
                 </div>
                 
 
@@ -517,6 +517,71 @@ event<span class="token punctuation">.</span><span class="token function">on</sp
 event<span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span><span class="token string">"say"</span><span class="token punctuation">,</span> cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
 event<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">"say"</span><span class="token punctuation">,</span> <span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="实现发布订阅-EventEmitter-2021-07-更新"><a href="#实现发布订阅-EventEmitter-2021-07-更新" class="headerlink" title="实现发布订阅 EventEmitter(2021-07 更新)"></a>实现发布订阅 EventEmitter(2021-07 更新)</h3><pre class="line-numbers language-javaScript" data-language="javaScript"><code class="language-javaScript">// 发布订阅模式
+// on emit once off
+
+// 构造函数版本
+function EventEmitter(){
+    this._events={}
+}
+
+EventEmitter.prototype.on = function(eventName,callback){
+    if(!this._events) this._events={};
+    if(this._events[eventName]){
+        this._events[eventName].push(callback)
+    }else{
+        this._events[eventName] = [callback]
+    }
+}
+
+// 触发订阅的事件
+EventEmitter.prototype.emit = function(eventName,...args){
+    if(!this._events) this._events={};
+    const callbacks = this._events[eventName];
+    if(callbacks) callbacks.forEach(callback =&gt; callback(...args));
+}
+// 移除订阅的事件
+EventEmitter.prototype.off = function(eventName,callback){
+    if(!this._events) this._events={};
+    const callbacks = this._events[eventName];
+    if(callbacks) this._events[eventName] = callbacks.filter(fn =&gt; fn !== callback&amp;&amp;fn.l !==callback)
+}
+// 订阅一次之后自动取消
+EventEmitter.prototype.once = function(eventName,callback){
+    const one = (...args)=&gt;{
+        callback(...args);
+        this.off(eventName,one)
+    }
+    // 自定义属性，和原本的callback相关联，用于取消订阅
+    one.l = callback;
+    this.on(eventName,one)
+}
+
+// class版本
+class EventEmitter {
+    _events={};
+    on(event,listener){
+        this._events[event]?this._events[event].push(listener):this._events[event] = [listener];
+    }
+    emit(event,...args){
+        const listeners = this._events[event];
+        if(listeners) listeners.forEach(callabck =&gt; callabck(...args));
+    }
+    off(event,listener){
+        const listeners = this._events[event];
+        if(listeners) this._events[event] = listeners.filter((callback)=&gt;callback !== listener &amp;&amp; callback.l!==listener)
+    }
+    once(event,listener){
+        const once = (...args)=&gt;{
+            listener(...args);
+            this.off(event,once)
+        }
+        once.l = listener;
+        this.on(event,once)
+    }
+}
+module.exports = EventEmitter;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5e24590ef265da3e152d27bc#heading-14">初、中级前端应该要掌握的手写代码实现</a></p>
 
                 
@@ -582,8 +647,8 @@ event<span class="token punctuation">.</span><span class="token function">emit</
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/javaScript/">
-                                    <span class="chip bg-color">javaScript</span>
+                                <a href="/tags/javaScript-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                                    <span class="chip bg-color">javaScript - 设计模式</span>
                                 </a>
                             
                         </div>
@@ -998,7 +1063,7 @@ event<span class="token punctuation">.</span><span class="token function">emit</
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">74k</span>
+                        class="white-color">74.8k</span>
             
             
             
