@@ -480,26 +480,26 @@
 <h3 id="两种模式的区别"><a href="#两种模式的区别" class="headerlink" title="两种模式的区别"></a>两种模式的区别</h3><p>首先来看下两种模式的实现结构：</p>
 <p><img src="image.png" alt="两种设计模式对比(图片来自互联网)"></p>
 <p>从图片可以看出，发布订阅模式是存在一个类似事件管理中心的角色，可以隔绝订阅者和发布者之间的依赖；<br>观察者模式需要两个类，一个是观察者(Observer)，一个是被观察者(Subject)。如果观察者想要观察被观察者就需要将自己加到 Subject 中进行管理，如果被观察者发生变化，再亲自去通知观察者。<br>前面已经实现了<a target="_blank" rel="noopener" href="https://cassiellee.site/2020/04/10/js-shou-xie-dai-ma-zhi-ke-li-hua-he-fa-bu-ding-yue-eventemitter/">发布订阅模式</a>，接下来就来看看观察者模式的实现</p>
-<h3 id="观察者模式介绍实现"><a href="#观察者模式介绍实现" class="headerlink" title="观察者模式介绍实现"></a>观察者模式介绍实现</h3><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">class Subject {
-  constructor() {
-    this.observers = [];
-  }
-  // 添加观察者
-  add(observer) {
-    this.observers.push(observer);
-  }
-  //  通知观察者
-  notify(...args) {
-    this.observers.forEach((observer) =&gt; observer.update(...args));
-  }
-}
+<h3 id="观察者模式介绍实现"><a href="#观察者模式介绍实现" class="headerlink" title="观察者模式介绍实现"></a>观察者模式介绍实现</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Subject</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>observers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 添加观察者</span>
+  <span class="token function">add</span><span class="token punctuation">(</span><span class="token parameter">observer</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>observers<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>observer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">//  通知观察者</span>
+  <span class="token function">notify</span><span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>observers<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">observer</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> observer<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-class Observer {
-  update(...args) {
-    // 进行一些操作
-    console.log("观察者更新：", ...args);
-  }
-}
+<span class="token keyword">class</span> <span class="token class-name">Observer</span> <span class="token punctuation">{</span>
+  <span class="token function">update</span><span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 进行一些操作</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"观察者更新："</span><span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
@@ -697,8 +697,8 @@ class Observer {
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/%E6%A0%88/">
-                        <span class="chip bg-color">栈</span>
+                    <a href="/tags/%E9%93%BE%E8%A1%A8/">
+                        <span class="chip bg-color">链表</span>
                     </a>
                     
                 </div>
@@ -1001,7 +1001,7 @@ class Observer {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">78k</span>
+                        class="white-color">79.1k</span>
             
             
             

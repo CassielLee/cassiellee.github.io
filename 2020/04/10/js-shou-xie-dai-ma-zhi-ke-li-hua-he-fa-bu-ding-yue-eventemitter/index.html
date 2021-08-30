@@ -517,70 +517,70 @@ event<span class="token punctuation">.</span><span class="token function">on</sp
 event<span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span><span class="token string">"say"</span><span class="token punctuation">,</span> cb<span class="token punctuation">)</span><span class="token punctuation">;</span>
 event<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">"say"</span><span class="token punctuation">,</span> <span class="token string">"bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="实现发布订阅-EventEmitter-2021-07-更新"><a href="#实现发布订阅-EventEmitter-2021-07-更新" class="headerlink" title="实现发布订阅 EventEmitter(2021-07 更新)"></a>实现发布订阅 EventEmitter(2021-07 更新)</h3><pre class="line-numbers language-javaScript" data-language="javaScript"><code class="language-javaScript">// 发布订阅模式
-// on emit once off
+<h3 id="实现发布订阅-EventEmitter-2021-07-更新"><a href="#实现发布订阅-EventEmitter-2021-07-更新" class="headerlink" title="实现发布订阅 EventEmitter(2021-07 更新)"></a>实现发布订阅 EventEmitter(2021-07 更新)</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 发布订阅模式</span>
+<span class="token comment">// on emit once off</span>
 
-// 构造函数版本
-function EventEmitter(){
-    this._events={}
-}
+<span class="token comment">// 构造函数版本</span>
+<span class="token keyword">function</span> <span class="token function">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-EventEmitter.prototype.on = function(eventName,callback){
-    if(!this._events) this._events={};
-    if(this._events[eventName]){
-        this._events[eventName].push(callback)
-    }else{
-        this._events[eventName] = [callback]
-    }
-}
+<span class="token class-name">EventEmitter</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">on</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">eventName<span class="token punctuation">,</span>callback</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>callback<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>callback<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-// 触发订阅的事件
-EventEmitter.prototype.emit = function(eventName,...args){
-    if(!this._events) this._events={};
-    const callbacks = this._events[eventName];
-    if(callbacks) callbacks.forEach(callback =&gt; callback(...args));
-}
-// 移除订阅的事件
-EventEmitter.prototype.off = function(eventName,callback){
-    if(!this._events) this._events={};
-    const callbacks = this._events[eventName];
-    if(callbacks) this._events[eventName] = callbacks.filter(fn =&gt; fn !== callback&amp;&amp;fn.l !==callback)
-}
-// 订阅一次之后自动取消
-EventEmitter.prototype.once = function(eventName,callback){
-    const one = (...args)=&gt;{
-        callback(...args);
-        this.off(eventName,one)
-    }
-    // 自定义属性，和原本的callback相关联，用于取消订阅
-    one.l = callback;
-    this.on(eventName,one)
-}
+<span class="token comment">// 触发订阅的事件</span>
+<span class="token class-name">EventEmitter</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">emit</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">eventName<span class="token punctuation">,</span><span class="token operator">...</span>args</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> callbacks <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>callbacks<span class="token punctuation">)</span> callbacks<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">callback</span> <span class="token operator">=&gt;</span> <span class="token function">callback</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 移除订阅的事件</span>
+<span class="token class-name">EventEmitter</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">off</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">eventName<span class="token punctuation">,</span>callback</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> callbacks <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>callbacks<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span> <span class="token operator">=</span> callbacks<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">fn</span> <span class="token operator">=&gt;</span> fn <span class="token operator">!==</span> callback<span class="token operator">&amp;&amp;</span>fn<span class="token punctuation">.</span>l <span class="token operator">!==</span>callback<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 订阅一次之后自动取消</span>
+<span class="token class-name">EventEmitter</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">once</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">eventName<span class="token punctuation">,</span>callback</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">one</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+        <span class="token function">callback</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span>eventName<span class="token punctuation">,</span>one<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 自定义属性，和原本的callback相关联，用于取消订阅</span>
+    one<span class="token punctuation">.</span>l <span class="token operator">=</span> callback<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>eventName<span class="token punctuation">,</span>one<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-// class版本
-class EventEmitter {
-    _events={};
-    on(event,listener){
-        this._events[event]?this._events[event].push(listener):this._events[event] = [listener];
-    }
-    emit(event,...args){
-        const listeners = this._events[event];
-        if(listeners) listeners.forEach(callabck =&gt; callabck(...args));
-    }
-    off(event,listener){
-        const listeners = this._events[event];
-        if(listeners) this._events[event] = listeners.filter((callback)=&gt;callback !== listener &amp;&amp; callback.l!==listener)
-    }
-    once(event,listener){
-        const once = (...args)=&gt;{
-            listener(...args);
-            this.off(event,once)
-        }
-        once.l = listener;
-        this.on(event,once)
-    }
-}
-module.exports = EventEmitter;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">// class版本</span>
+<span class="token keyword">class</span> <span class="token class-name">EventEmitter</span> <span class="token punctuation">{</span>
+    _events<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token function">on</span><span class="token punctuation">(</span><span class="token parameter">event<span class="token punctuation">,</span>listener</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>event<span class="token punctuation">]</span><span class="token operator">?</span><span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>event<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span><span class="token operator">:</span><span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>event<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>listener<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">emit</span><span class="token punctuation">(</span><span class="token parameter">event<span class="token punctuation">,</span><span class="token operator">...</span>args</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">const</span> listeners <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>event<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>listeners<span class="token punctuation">)</span> listeners<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">callabck</span> <span class="token operator">=&gt;</span> <span class="token function">callabck</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">off</span><span class="token punctuation">(</span><span class="token parameter">event<span class="token punctuation">,</span>listener</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">const</span> listeners <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>event<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>listeners<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_events<span class="token punctuation">[</span>event<span class="token punctuation">]</span> <span class="token operator">=</span> listeners<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">callback</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span>callback <span class="token operator">!==</span> listener <span class="token operator">&amp;&amp;</span> callback<span class="token punctuation">.</span>l<span class="token operator">!==</span>listener<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">once</span><span class="token punctuation">(</span><span class="token parameter">event<span class="token punctuation">,</span>listener</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">once</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+            <span class="token function">listener</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span>once<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        once<span class="token punctuation">.</span>l <span class="token operator">=</span> listener<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span>once<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> EventEmitter<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5e24590ef265da3e152d27bc#heading-14">初、中级前端应该要掌握的手写代码实现</a></p>
 
@@ -1063,7 +1063,7 @@ module.exports = EventEmitter;<span aria-hidden="true" class="line-numbers-rows"
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">78k</span>
+                        class="white-color">79.1k</span>
             
             
             

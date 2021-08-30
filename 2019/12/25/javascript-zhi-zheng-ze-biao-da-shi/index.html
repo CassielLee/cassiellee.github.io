@@ -497,19 +497,19 @@
 <p>例如：<code>/ab{2,5}c/g</code>，其可视化形式为：</p>
 <p><img src="https://i.loli.net/2019/12/29/TXcxWs6wL495jEk.png" alt="/ab{2,5}c/g可视化"></p>
 <p>代码测试：</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /ab{2,5}c/g;
-const string = "abc abbc abbbc abbbbc abbbbbc abbbbbbc";
-console.log(string.match(regex));
-// =&gt; ["abbc", "abbbc", "abbbbc", "abbbbbc"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">ab{2,5}c</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"abc abbc abbbc abbbbc abbbbbc abbbbbbc"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; ["abbc", "abbbc", "abbbbc", "abbbbbc"]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p><strong>纵向模糊</strong></p>
 <p>纵向模糊指的是，一个正则匹配的字符串，具体到某一位字符时，它可以不是某个确定的字符，可以有多种可能。其实现的方式是使用字符组。譬如 [abc]，表示该字符是可以字符 “a”、”b”、”c” 中的任何一个。</p>
 <p>例如：<code>/a[123]b/</code>，其可视化形式为：</p>
 <p><img src="https://i.loli.net/2019/12/26/3R4Qmu8paLIewGo.png" alt="/a[123]b/可视化"></p>
 <p>代码测试：</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /a[123]b/g;
-const string = "a0b a1b a2b a3b a4b";
-console.log(string.match(regex));
-// =&gt; ["a1b", "a2b", "a3b"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">a[123]b</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"a0b a1b a2b a3b a4b"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; ["a1b", "a2b", "a3b"]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <ol start="2">
 <li><h4 id="字符组"><a href="#字符组" class="headerlink" title="字符组"></a>字符组</h4><p><strong>字符组</strong>表示匹配组内的<strong>一个</strong>字符。例如：[abc]，匹配 “a”、”b”、”c” 其中之一。</p>
@@ -537,41 +537,41 @@ console.log(string.match(regex));
 <li>惰性匹配。例如：<code>/\d{3,7}?/</code>,会尽可能少匹配，有 3 个匹配后就不再继续。</li>
 </ul>
 <p>代码测试：</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const r1 = /\d{3,7}/g;
-const r2 = /\d{3,7}?/g;
-const testString = "123 1234 12 12345 1 123456";
-console.log(testString.match(r1)); //[ '123', '1234', '12345', '123456' ]
-console.log(testString.match(r2)); //[ '123', '123', '123', '123', '456' ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> r1 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d{3,7}</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> r2 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d{3,7}?</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> testString <span class="token operator">=</span> <span class="token string">"123 1234 12 12345 1 123456"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>testString<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>r1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//[ '123', '1234', '12345', '123456' ]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>testString<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>r2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//[ '123', '123', '123', '123', '456' ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>通过在量词后面加个问号就能实现惰性匹配，因此所有惰性匹配情形如下：<br><img src="https://i.loli.net/2019/12/26/6573tpSjKDfbGNJ.png" alt="惰性量词和贪婪量词"></p>
 </li>
 </ol>
 </li>
 <li><h4 id="多选分支"><a href="#多选分支" class="headerlink" title="多选分支"></a>多选分支</h4><p>一个模式可以实现横向和纵向模糊匹配，而多选分支可以支持多个子模式任选其一。但是分支结构是惰性的。<br><strong>语法：</strong>(p1|p2|p3)，其中 p1、p2 和 p3 是子模式，用 <strong>|（管道符）</strong>分隔，表示其中任何之一。<br>例如：表达式<code>/hello|world/</code>的可视化形式为：<br><img src="https://i.loli.net/2019/12/26/gHFlfwLh2mpBo7y.png" alt="多选分支可视化"><br>惰性分支的惰性表现*(当前面的分支匹配上了，后面的分支就不再尝试了)*：</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 多选分支的惰性表现
-const r1 = /biubiu|biubiuuu/g;
-const r2 = /biubiuuu|biubiu/g;
-const testString = "biubiuuu";
-console.log(testString.match(r1)); //[ 'biubiu' ]
-console.log(testString.match(r2)); //[ 'biubiuuu' ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 多选分支的惰性表现</span>
+<span class="token keyword">const</span> r1 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">biubiu|biubiuuu</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> r2 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">biubiuuu|biubiu</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> testString <span class="token operator">=</span> <span class="token string">"biubiuuu"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>testString<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>r1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//[ 'biubiu' ]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>testString<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>r2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//[ 'biubiuuu' ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><h4 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h4><p><strong>要求：</strong>从代码<code>&lt;div id="container" class="main"&gt;&lt;/div&gt;</code>中提取出<code>id="container"</code></p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">//尝试一：
-const r = /id=".*"/;
-const string = '&lt;div id="container" class="main"&gt;&lt;/div&gt;';
-console.log(string.match(r)[0]); //id="container" class="main"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//尝试一：</span>
+<span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">id=".*"</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">'&lt;div id="container" class="main"&gt;&lt;/div&gt;'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//id="container" class="main"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2019/12/26/Mu9DO2JCKgWnfXr.png" alt="尝试一可视化形式"><br>因为 . 是通配符，本身就匹配双引号的，而量词 * 又是贪婪的，会尽可能多的匹配，所以当遇到 *container* 后面双引号时，不会停下来而是会继续匹配，直到遇到最后一个双引号为止。</p>
 <p>使用惰性匹配，可以达到目的但效率低，有<strong>回溯</strong>问题。</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">//尝试二：
-const r = /id=".*?"/;
-const string = '&lt;div id="container" class="main"&gt;&lt;/div&gt;';
-console.log(string.match(r)[0]); //id="container"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//尝试二：</span>
+<span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">id=".*?"</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">'&lt;div id="container" class="main"&gt;&lt;/div&gt;'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//id="container"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>优化如下，通过使用^(脱字符)来保证两个双引号中间不会出现第三个双引号：</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">//尝试三：
-const r = /id="[^"]*"/;
-const string = '&lt;div id="container" class="main"&gt;&lt;/div&gt;';
-console.log(string.match(r)[0]); //id="container"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//尝试三：</span>
+<span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">id="[^"]*"</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">'&lt;div id="container" class="main"&gt;&lt;/div&gt;'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//id="container"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="https://i.loli.net/2019/12/26/H7V4AhumZ8OcbPn.png" alt="优化可视化"></p>
 </li>
@@ -582,59 +582,59 @@ console.log(string.match(r)[0]); //id="container"<span aria-hidden="true" class=
 <li><h4 id="如何匹配位置？"><a href="#如何匹配位置？" class="headerlink" title="如何匹配位置？"></a>如何匹配位置？</h4><p>在 ES5 中，共有 6 个锚：^、$、\b、\B、(?=p)、(?!p)，则相应的可视化形式为：<br><img src="https://i.loli.net/2019/12/26/T9zvfxDBSiAZsjY.png" alt="位置可视化"></p>
 <ol>
 <li><h5 id="和"><a href="#和" class="headerlink" title="^ 和 $"></a>^ 和 $</h5><p>^（脱字符）匹配开头，在多行匹配中匹配行开头。<br>$（美元符号）匹配结尾，在多行匹配中匹配行结尾。</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">//单行匹配
-const result1 = "hello".replace(/^|$/g, "🤣");
-console.log(result1);
-//🤣hello🤣
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//单行匹配</span>
+<span class="token keyword">const</span> result1 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^|$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">"🤣"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//🤣hello🤣</span>
 
-//多行匹配
-const result2 = "hello\nworld".replace(/^|$/gm, "🤣");
-console.log(result2);
-/*
+<span class="token comment">//多行匹配</span>
+<span class="token keyword">const</span> result2 <span class="token operator">=</span> <span class="token string">"hello\nworld"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^|$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">gm</span></span><span class="token punctuation">,</span> <span class="token string">"🤣"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/*
  * 🤣hello🤣
  * 🤣world🤣
- */<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+ */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><h5 id="b-和-B"><a href="#b-和-B" class="headerlink" title="\b 和 \B"></a>\b 和 \B</h5><p>\b 是单词边界，具体就是 \w 与 \W 之间的位置，也包括 \w 与 ^ 之间的位置，和 \w 与 $ 之间的位置。<br>\B 就是 \b 的反面的意思，非单词边界。在字符串中所有位置中，扣掉 \b，剩下的都是 \B 的。具体说来就是 \w 与 \w、 \W 与 \W、^ 与 \W，\W 与 $ 之间的位置。</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// \b
-const result1 = "[JS] Lesson_01.mp4".replace(/\b/g, "😍");
-console.log(result1);
-//[😍JS😍] 😍Lesson_01😍.😍mp4😍
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// \b</span>
+<span class="token keyword">const</span> result1 <span class="token operator">=</span> <span class="token string">"[JS] Lesson_01.mp4"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\b</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">"😍"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//[😍JS😍] 😍Lesson_01😍.😍mp4😍</span>
 
-// \B
-const result2 = "[JS] Lesson_01.mp4".replace(/\B/g, "😍");
-console.log(result2);
-//😍[J😍S]😍 L😍e😍s😍s😍o😍n😍_😍0😍1.m😍p😍4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token comment">// \B</span>
+<span class="token keyword">const</span> result2 <span class="token operator">=</span> <span class="token string">"[JS] Lesson_01.mp4"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\B</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">"😍"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//😍[J😍S]😍 L😍e😍s😍s😍o😍n😍_😍0😍1.m😍p😍4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><h5 id="p-和-p"><a href="#p-和-p" class="headerlink" title="(?=p) 和 (?!p)"></a>(?=p) 和 (?!p)</h5><p>二者的学名分别是 positive lookahead 和 negative lookahead。中文翻译分别是正向先行断言和负向先行断言。(?=p)，其中 p 是一个子模式，即 p 前面的位置，或者说，该位置后面的字符要匹配 p。而 (?!p) 就是 (?=p) 的反面意思。</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// (?=p)
-// (?=l) 表示 l 字符前面的位置
-const result1 = "hello".replace(/(?=l)/g, "😊");
-console.log(result1);
-// =&gt; he😊l😊lo
-// (?!p)
-// (?!l) 表示不是 l 字符的字符前面的位置
-const result2 = "hello".replace(/(?!l)/g, "😊");
-console.log(result2);
-// =&gt; 😊h😊ell😊o😊<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// (?=p)</span>
+<span class="token comment">// (?=l) 表示 l 字符前面的位置</span>
+<span class="token keyword">const</span> result1 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?=l)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">"😊"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; he😊l😊lo</span>
+<span class="token comment">// (?!p)</span>
+<span class="token comment">// (?!l) 表示不是 l 字符的字符前面的位置</span>
+<span class="token keyword">const</span> result2 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?!l)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">"😊"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; 😊h😊ell😊o😊</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>ES5 之后的版本，会支持 (?&lt;=p) 和 (?&lt;!p)。(?&lt;=p) 表示 p 后面的位置，而 (?&lt;!p) 表示的意思则与其相反。</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// (?&lt;=p)
-// (?&lt;=l) 表示 l 字符后面的位置
-const result1 = "hello".replace(/(?&lt;=l)/g, "😉");
-console.log(result1);
-// =&gt; hel😉l😉o
-// (?&lt;!p)
-// (?&lt;!l) 表示不是 l 字符的字符后面的位置
-const result2 = "hello".replace(/(?&lt;!l)/g, "😉");
-console.log(result2);
-// =&gt; 😉h😉e😉llo😉<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// (?&lt;=p)</span>
+<span class="token comment">// (?&lt;=l) 表示 l 字符后面的位置</span>
+<span class="token keyword">const</span> result1 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?&lt;=l)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">"😉"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; hel😉l😉o</span>
+<span class="token comment">// (?&lt;!p)</span>
+<span class="token comment">// (?&lt;!l) 表示不是 l 字符的字符后面的位置</span>
+<span class="token keyword">const</span> result2 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?&lt;!l)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">"😉"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; 😉h😉e😉llo😉</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 </li>
 <li><h4 id="位置的特性"><a href="#位置的特性" class="headerlink" title="位置的特性"></a>位置的特性</h4><p>我们可以将<strong>位置</strong>理解成空字符””。也就是说字符之间的位置，可以写成多个。例如：把 <code>/^hello$/</code> 写成 <code>/^^hello$$$/</code>是完全没有问题的。</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// /^hello$/
-const result1 = /^hello$/.test("hello");
-console.log(result1); // true
-// /^^hello$$$/
-const result2 = /^^hello$$$/.test("hello");
-console.log(result2); // true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// /^hello$/</span>
+<span class="token keyword">const</span> result1 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^hello$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+<span class="token comment">// /^^hello$$$/</span>
+<span class="token keyword">const</span> result2 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^^hello$$$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><h4 id="案例分析-1"><a href="#案例分析-1" class="headerlink" title="案例分析"></a>案例分析</h4><ul>
 <li>不匹配任何东西的正则：/.^/</li>
 <li>验证密码的问题：密码长度 6-16 位，由数字、小写字符和大写字母组成，但必须至少包括 2 种字符。<br>第一步：简化版(不考虑”但必须至少包括 2 种字符”这一条件)<br><code>const regex = /^[0-9A-Za-z]{6,16}$/;</code><br>第二步：判断是否包含有某一种字符(假设是数字)<br><code>const regex = /(?=.*[0-9])^[0-9A-Za-z]{6,16}\$/; //利用正向先行断言</code><br>第三步：同时包含两种字符(比如同时包含数字和小写字母，可以用 <code>(?=.*[0-9])(?=.*[a-z])</code> 来做)<br><code>const regex = /(?=.*[0-9])(?=.*[a-z])^[0-9A-Za-z]{6,16}$/;</code><br>第四步：拆分需求情况：<ul>
@@ -642,16 +642,16 @@ console.log(result2); // true<span aria-hidden="true" class="line-numbers-rows">
 <li>同时包含数字和大写字母<br><code>const regex = /(?=.*[0-9])(?=.*[A-Z])^[0-9A-Za-z]{6,16}$/;</code></li>
 <li>同时包含小写字母和大写字母<br><code>const regex = /(?=.*[A-Z])(?=.*[a-z])^[0-9A-Za-z]{6,16}$/;</code></li>
 <li>同时包含数字、小写字母和大写字母<br><code>const regex=/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])^[0-9A-Za-z]{6,16}$/;</code></li>
-<li>以上的 4 种情况是或的关系（实际上，可以不用第 4 条）。<br>所以，最终答案是：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 密码验证
-const regex = /((?=.*[0-9])(?=.*[a-z])|(?=.*[0-9])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z]))^[0-9A-Za-z]{6,16}$/;
-console.log(regex.test("467664")); // false 全是数字
-console.log(regex.test("fgjghjh")); // false 全是小写字母
-console.log(regex.test("GJKHIKJL")); // false 全是大写字母
-console.log(regex.test("hl23C")); // false 不足6位
-console.log(regex.test("hl23C6+6+sdfs")); // false 有其他字符
-console.log(regex.test("hl23C66GGHsdfs556")); // false 长度超过16位
-console.log(regex.test("HJJYUU234")); // true 大写字母和数字
-console.log(regex.test("abcdEF234")); // true 三者都有<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>以上的 4 种情况是或的关系（实际上，可以不用第 4 条）。<br>所以，最终答案是：<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 密码验证</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">((?=.*[0-9])(?=.*[a-z])|(?=.*[0-9])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z]))^[0-9A-Za-z]{6,16}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"467664"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false 全是数字</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"fgjghjh"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false 全是小写字母</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"GJKHIKJL"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false 全是大写字母</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"hl23C"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false 不足6位</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"hl23C6+6+sdfs"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false 有其他字符</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"hl23C66GGHsdfs556"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false 长度超过16位</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"HJJYUU234"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true 大写字母和数字</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"abcdEF234"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true 三者都有</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 可视化形式：<br><img src="https://i.loli.net/2019/12/26/RCiHZ8KVOGsXWMy.png" alt="密码验证可视化"></li>
 </ul>
 </li>
@@ -665,13 +665,13 @@ console.log(regex.test("abcdEF234")); // true 三者都有<span aria-hidden="tru
 <ul>
 <li>分组，强调括号内的是一个整体</li>
 </ul>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 分组
-const regex = /(ab)+/g;
-const string = "ababa abbb ababab";
-console.log(string.match(regex)); // [ 'abab', 'ab', 'ababab' ]
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 分组</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(ab)+</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"ababa abbb ababab"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// [ 'abab', 'ab', 'ababab' ]</span>
 
-const regex1 = /ab+/g;
-console.log(string.match(regex1)); //[ 'ab', 'ab', 'abbb', 'ab', 'ab', 'ab' ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">const</span> regex1 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">ab+</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//[ 'ab', 'ab', 'abbb', 'ab', 'ab', 'ab' ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li>分支结构，在多选分支结构 (p1|p2) 中，此处括号的作用提供了分支表达式的所有可能。<br>例如<code>/^I love (JavaScript|Regular Expression)$/</code> 和 <code>/^I love JavaScript|Regular Expression$/</code>这两个分支的可视化分别为：<br><img src="https://i.loli.net/2019/12/26/LxtDVJKONZRpf5v.png" alt="有括号可视化"><br><img src="https://i.loli.net/2019/12/26/1Xk3ZMD8G9YIqms.png" alt="无括号可视化"></li>
@@ -679,85 +679,85 @@ console.log(string.match(regex1)); //[ 'ab', 'ab', 'abbb', 'ab', 'ab', 'ab' ]<sp
 </li>
 <li><h4 id="分组引用"><a href="#分组引用" class="headerlink" title="分组引用"></a>分组引用</h4><p>分组引用是括号的另一个重要作用，有了它，我们就可以进行数据提取，以及更强大的替换操作。<br>以日期为例。假设格式是 yyyy-mm-dd 的，我们可以先写一个简单的正则：<br><code>const regex = /\d{4}-\d{2}-\d{2}/;</code><br><img src="https://i.loli.net/2019/12/26/JrCVMvoEyBTI1qw.png" alt="日期可视化"><br>给正则表达式加上括号：<br><code>const regex = /(\d{4})-(\d{2})-(\d{2})/;</code><br><img src="https://i.loli.net/2019/12/26/R6M4vlQzXsIH8wY.png" alt="日期可视化加括号"><br>可以看到加了括号之后，多了分组编号，如 Group #1。其实正则引擎也是这么做的，在匹配过程中，给每一个分组都开辟一个空间，用来存储每一个分组匹配到的数据。<br>使用分组捕获的数据：</p>
 <ol>
-<li><h5 id="提取数据"><a href="#提取数据" class="headerlink" title="提取数据"></a>提取数据</h5>比如提取出年、月、日：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 提取数据
-const regex = /(\d{4})-(\d{2})-(\d{2})/;
-const string = "2019-12-31";
-console.log(string.match(regex));
-// ['2019-12-31','2019','12','31',index: 0,input: '2019-12-31',groups: undefined]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li><h5 id="提取数据"><a href="#提取数据" class="headerlink" title="提取数据"></a>提取数据</h5>比如提取出年、月、日：<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 提取数据</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d{4})-(\d{2})-(\d{2})</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"2019-12-31"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// ['2019-12-31','2019','12','31',index: 0,input: '2019-12-31',groups: undefined]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 返回的一个数组，第一个元素是整体匹配结果，然后是各个分组（括号里）匹配的内容，然后是匹配下标，最后是输入的文本。另外，正则表达式是否有修饰符 g，match 返回的数组格式是不一样的。</li>
-<li><h5 id="替换数据"><a href="#替换数据" class="headerlink" title="替换数据"></a>替换数据</h5>比如把 yyyy-mm-dd 格式，替换成 mm/dd/yyyy：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 替换数据
-const regex = /(\d{4})-(\d{2})-(\d{2})/;
-const string = "2019-12-31";
-const result = string.replace(regex, "$2/$3/$1");
-console.log(result); // 12/31/2019<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-其中 replace 中的，第二个参数里用 $1、$2、$3 指代相应的分组。等价于：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /(\d{4})-(\d{2})-(\d{2})/;
-const string = "2019-12-31";
-const result = string.replace(regex, function(match, year, month, day) {
-  return month + "/" + day + "/" + year;
-});
-console.log(result); // 12/31/2019<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="替换数据"><a href="#替换数据" class="headerlink" title="替换数据"></a>替换数据</h5>比如把 yyyy-mm-dd 格式，替换成 mm/dd/yyyy：<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 替换数据</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d{4})-(\d{2})-(\d{2})</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"2019-12-31"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> result <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>regex<span class="token punctuation">,</span> <span class="token string">"$2/$3/$1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 12/31/2019</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+其中 replace 中的，第二个参数里用 $1、$2、$3 指代相应的分组。等价于：<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d{4})-(\d{2})-(\d{2})</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"2019-12-31"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> result <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>regex<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">match<span class="token punctuation">,</span> year<span class="token punctuation">,</span> month<span class="token punctuation">,</span> day</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> month <span class="token operator">+</span> <span class="token string">"/"</span> <span class="token operator">+</span> day <span class="token operator">+</span> <span class="token string">"/"</span> <span class="token operator">+</span> year<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 12/31/2019</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 </li>
 <li><h4 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h4><p>除了使用相应 API 来引用分组，也可以在正则本身里引用分组。但只能引用之前出现的分组，即反向引用。可以使用 \n 来匹配捕获到的第 n 个分组。<br>例如：写一个匹配 2019-11-25 或 2019.11.25 或 2019/11/25 这三种格式日期的正则。</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 常见，无法保证分隔符前后一致
-const regex = /\d{4}(-|\/|\.)\d{2}(-|\/|\.)\d{2}/;
-const string1 = "2019-12-31";
-const string2 = "2019/12/31";
-const string3 = "2019.12.31";
-const string4 = "2019-12/31";
-console.log(regex.test(string1)); // true
-console.log(regex.test(string2)); // true
-console.log(regex.test(string3)); // true
-console.log(regex.test(string4)); // true
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 常见，无法保证分隔符前后一致</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d{4}(-|\/|\.)\d{2}(-|\/|\.)\d{2}</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string1 <span class="token operator">=</span> <span class="token string">"2019-12-31"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string2 <span class="token operator">=</span> <span class="token string">"2019/12/31"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string3 <span class="token operator">=</span> <span class="token string">"2019.12.31"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string4 <span class="token operator">=</span> <span class="token string">"2019-12/31"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string4<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
 
-// 反向引用
-const regex = /\d{4}(-|\/|\.)\d{2}\1\d{2}/;
-const string1 = "2019-12-31";
-const string2 = "2019/12/31";
-const string3 = "2019.12.31";
-const string4 = "2019-12/31";
-console.log(regex.test(string1)); // true
-console.log(regex.test(string2)); // true
-console.log(regex.test(string3)); // true
-console.log(regex.test(string4)); // false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">// 反向引用</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d{4}(-|\/|\.)\d{2}\1\d{2}</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string1 <span class="token operator">=</span> <span class="token string">"2019-12-31"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string2 <span class="token operator">=</span> <span class="token string">"2019/12/31"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string3 <span class="token operator">=</span> <span class="token string">"2019.12.31"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string4 <span class="token operator">=</span> <span class="token string">"2019-12/31"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string4<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>反向引用可视化形式：<br><img src="https://i.loli.net/2019/12/26/TCpsQLGKkcOWVy7.png" alt="反向引用可视化"><br>表达式里面的 \1，表示的引用之前的那个分组 <code>(-|\/|\.)</code>。不管它匹配到什么（比如 -），\1 都匹配那个同样的具体某个字符。同理可得，那么 \2 和 \3 的概念也就理解了，即分别指代第二个和第三个分组。</p>
 <ul>
 <li>括号嵌套，以左括号（开括号）为准。</li>
 </ul>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /^((\d)(\d(\d)))\1\2\3\4$/;
-const string = "1231231233";
-console.log(regex.test(string)); // true
-console.log(RegExp.$1); // 123
-console.log(RegExp.$2); // 1
-console.log(RegExp.$3); // 23
-console.log(RegExp.$4); // 3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^((\d)(\d(\d)))\1\2\3\4$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"1231231233"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>RegExp<span class="token punctuation">.</span>$<span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 123</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>RegExp<span class="token punctuation">.</span>$<span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>RegExp<span class="token punctuation">.</span>$<span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 23</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>RegExp<span class="token punctuation">.</span>$<span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li>\10 表示第 10 个分组</li>
 </ul>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /(1)(2)(3)(4)(5)(6)(7)(8)(9)(#) \10+/;
-const string = "123456789# 99999";
-const string1 = "123456789# ####";
-console.log(regex.test(string)); // =&gt; false
-console.log(regex.test(string1)); // =&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(1)(2)(3)(4)(5)(6)(7)(8)(9)(#) \10+</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"123456789# 99999"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string1 <span class="token operator">=</span> <span class="token string">"123456789# ####"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// =&gt; false</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// =&gt; true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li>分组后面有量词时，分组最终捕获到的数据是最后一次的匹配。</li>
 </ul>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /(\d)+ \1/;
-console.log(regex.test("12345 1")); // =&gt; false
-console.log(regex.test("12345 5")); // =&gt; true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d)+ \1</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"12345 1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// =&gt; false</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"12345 5"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// =&gt; true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 <li><h4 id="非捕获括号"><a href="#非捕获括号" class="headerlink" title="非捕获括号"></a>非捕获括号</h4><p>之前文中出现的括号，都会捕获它们匹配到的数据，以便后续引用，因此也称它们是捕获型分组和捕获型分支。<br>如果只想要括号最原始的功能，但不会引用它，即，既不在 API 里引用，也不在正则里反向引用。 此时可以使用非捕获括号 (?:p)和 (?:p1|p2|p3)。</p>
 </li>
 <li><h4 id="案例分析-2"><a href="#案例分析-2" class="headerlink" title="案例分析"></a>案例分析</h4><ul>
-<li>驼峰化<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">function camelize(str) {
-  return str.replace(/[-_\s]+(.)?/g, function(match, c) {
-    return c ? c.toUpperCase() : "";
-  });
-}
-console.log(camelize("-cassiel-lee-transform"));
-// =&gt; CassielLeeTransform<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>驼峰化<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">camelize</span><span class="token punctuation">(</span><span class="token parameter">str</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> str<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[-_\s]+(.)?</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">match<span class="token punctuation">,</span> c</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> c <span class="token operator">?</span> c<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">camelize</span><span class="token punctuation">(</span><span class="token string">"-cassiel-lee-transform"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; CassielLeeTransform</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 其中分组 (.) 表示首字母。单词的界定是，前面的字符可以是多个连字符、下划线以及空白符。正则后面的 ? 的目的，是为了应对 str 尾部的字符可能不是单词字符，比如，”-cassiel-lee-transform “。</li>
 </ul>
 </li>
@@ -767,31 +767,31 @@ console.log(camelize("-cassiel-lee-transform"));
 <li><h4 id="没有回溯的匹配"><a href="#没有回溯的匹配" class="headerlink" title="没有回溯的匹配"></a>没有回溯的匹配</h4>假设正则表达式<code>/ab{1,3}c/</code>，其中子表达式 <code>b{1,3}</code> 表示 “b” 字符连续出现 1 到 3 次。其可视化形式为：<br><img src="https://i.loli.net/2019/12/27/1iKZkdtSvxyfXOH.png" alt="ab{1,3}c可视化"><br><img src="https://i.loli.net/2019/12/27/1mjyWXsGhIPvMDf.png" alt="匹配过程"></li>
 <li><h4 id="有回溯的匹配"><a href="#有回溯的匹配" class="headerlink" title="有回溯的匹配"></a>有回溯的匹配</h4>当目标字符串是 “abbc” 时，中间就有回溯:<br><img src="https://i.loli.net/2019/12/27/IApnd7tYykQjb5H.png" alt="回溯匹配"><br>图中第 5 步有红颜色，表示匹配不成功。此时 <code>b{1,3}</code> 已经匹配到了 2 个字符 “b”，准备尝试第三个时，结果发现接下来的字符是 “c”。那么就认为 <code>b{1,3}</code> 就已经匹配完毕。然后状态又回到之前的状态（即第 6 步与第 4 步一样），最后再用子表达 c 去匹配字符 “c”。当然，此时整个表达式匹配成功了。图中的第 6 步，就是“回溯”。<br>再举一个例子：正则表达式是：<code>/".*"/</code>,目标字符串是：<code>"abc"de</code>，则匹配过程如下图所示。图中省略了尝试匹配双引号失败的过程。可以看出 <code>.*</code> 是非常影响效率的。为了减少一些不必要的回溯，可以把正则修改为 <code>/"[^"]"/</code>。<br><img src="https://i.loli.net/2019/12/27/cT1JY9RyfAb3CHO.png" alt="匹配"></li>
 <li><h4 id="常见的回溯形式"><a href="#常见的回溯形式" class="headerlink" title="常见的回溯形式"></a>常见的回溯形式</h4>从上面的描述过程中可以看出正则匹配的过程本质上就是<strong>深度优先搜索算法</strong>，当路走不通时，就会回退一步或者是若干步，然后换一条路继续走，其中回退的过程就是“回溯”。也就是说在正则表达式尝试匹配失败时，接下来的一步通常就是回溯。一般来说，容易产生回溯的情况如下：<ol>
-<li><h5 id="贪婪量词"><a href="#贪婪量词" class="headerlink" title="贪婪量词"></a>贪婪量词</h5>例如：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">console.log("567".match(/(\d{1,3})(7)/));
-// =&gt; [ '567', '56', '7', index: 0, input: '567', groups: undefined ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-上述例子是和贪婪量词有关的，即<code>\d{1,3}</code>，因为其是贪婪的，尝试可能的顺序是从多往少的方向去尝试。也就是说<code>\d{1,3}</code>在匹配时，首先会尝试匹配 3 个数字，然后再看整个正则是否能匹配。不能匹配时，则吐出一个数字，即在 2 个数字的基础上，再继续尝试。如果还不行，再吐出一个，再试。如果还不行呢？只能说明匹配失败了。虽然局部匹配是贪婪的，但也要满足整体能正确匹配。如果当多个贪婪量词挨着存在，并相互有冲突时，会看匹配顺序，深度优先搜索。例如：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const string = "567";
-const regex = /(\d{1,3})(\d{1,3})/;
-console.log(string.match(regex));
-// =&gt; [ '567', '56', '7', index: 0, input: '567', groups: undefined ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><h5 id="惰性量词"><a href="#惰性量词" class="headerlink" title="惰性量词"></a>惰性量词</h5>惰性量词就是在贪婪量词后面加个问号。表示尽可能少的匹配。虽然惰性量词会尽可能少的匹配，但是有些时候也会发生回溯，这种情况通常是为了整体匹配使得惰性量词匹配到的不是最少的数量。如下例中，正则表达式是<code>/^(\d{1,3}?)(\d{1,3})$/</code>,当目标字符串是”5678”是，刚好满足惰性量词<code>\d{1,3}?</code>匹配 1 个数字，贪婪量词<code>\d{1,3}</code>匹配 3 个数字，所以不会发生回溯。而当目标字符串是”12345”的时候。为了整体匹配，<code>\d{1,3}?</code>匹配到的并不只是一个数字，而是”12”两个数字。在这个匹配过程中会有回溯发生，匹配情况如下图：<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">// 无回溯
-const string = "5678";
-const regex = /^(\d{1,3}?)(\d{1,3})$/;
-console.log(string.match(regex));
-// =&gt; [ '5678', '5', '678', index: 0, input: '5678', groups: undefined ]
-// 回溯
-const string1 = "12345";
-console.log(string1.match(regex));
-// =&gt; [ '12345', '12', '345', index: 0, input: '12345', groups: undefined ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li><h5 id="贪婪量词"><a href="#贪婪量词" class="headerlink" title="贪婪量词"></a>贪婪量词</h5>例如：<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"567"</span><span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d{1,3})(7)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; [ '567', '56', '7', index: 0, input: '567', groups: undefined ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+上述例子是和贪婪量词有关的，即<code>\d{1,3}</code>，因为其是贪婪的，尝试可能的顺序是从多往少的方向去尝试。也就是说<code>\d{1,3}</code>在匹配时，首先会尝试匹配 3 个数字，然后再看整个正则是否能匹配。不能匹配时，则吐出一个数字，即在 2 个数字的基础上，再继续尝试。如果还不行，再吐出一个，再试。如果还不行呢？只能说明匹配失败了。虽然局部匹配是贪婪的，但也要满足整体能正确匹配。如果当多个贪婪量词挨着存在，并相互有冲突时，会看匹配顺序，深度优先搜索。例如：<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"567"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d{1,3})(\d{1,3})</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; [ '567', '56', '7', index: 0, input: '567', groups: undefined ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="惰性量词"><a href="#惰性量词" class="headerlink" title="惰性量词"></a>惰性量词</h5>惰性量词就是在贪婪量词后面加个问号。表示尽可能少的匹配。虽然惰性量词会尽可能少的匹配，但是有些时候也会发生回溯，这种情况通常是为了整体匹配使得惰性量词匹配到的不是最少的数量。如下例中，正则表达式是<code>/^(\d{1,3}?)(\d{1,3})$/</code>,当目标字符串是”5678”是，刚好满足惰性量词<code>\d{1,3}?</code>匹配 1 个数字，贪婪量词<code>\d{1,3}</code>匹配 3 个数字，所以不会发生回溯。而当目标字符串是”12345”的时候。为了整体匹配，<code>\d{1,3}?</code>匹配到的并不只是一个数字，而是”12”两个数字。在这个匹配过程中会有回溯发生，匹配情况如下图：<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 无回溯</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"5678"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(\d{1,3}?)(\d{1,3})$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; [ '5678', '5', '678', index: 0, input: '5678', groups: undefined ]</span>
+<span class="token comment">// 回溯</span>
+<span class="token keyword">const</span> string1 <span class="token operator">=</span> <span class="token string">"12345"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string1<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; [ '12345', '12', '345', index: 0, input: '12345', groups: undefined ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <img src="https://i.loli.net/2019/12/27/x8ELTmikSBsItcA.png" alt="惰性回溯"></li>
-<li><h5 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h5>前面说过分支也是惰性的，比如 <code>/biubiu|biubiubiu/</code>，去匹配字符串 “biubiubiu”，得到的结果是 “biubiu”，因为分支会一个一个尝试，如果前面的满足了，后面就不会再试了。但是如果一个分支整体不匹配，则会继续尝试剩下分支，也可以看成一种回溯。<br><img src="https://i.loli.net/2019/12/27/bN5FD7f4QEK3cse.png" alt="可视化"><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const string1 = "biubiu";
-const string2 = "biubiubiu";
-const regex = /^(?:biubiu|biubiubiu)$/;
-// 无回溯
-console.log(string1.match(regex));
-// 有回溯
-console.log(string2.match(regex));
-// =&gt; [ 'biubiu', index: 0, input: 'biubiu', groups: undefined ]
-// =&gt; [ 'biubiubiu', index: 0, input: 'biubiubiu', groups: undefined ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><h5 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h5>前面说过分支也是惰性的，比如 <code>/biubiu|biubiubiu/</code>，去匹配字符串 “biubiubiu”，得到的结果是 “biubiu”，因为分支会一个一个尝试，如果前面的满足了，后面就不会再试了。但是如果一个分支整体不匹配，则会继续尝试剩下分支，也可以看成一种回溯。<br><img src="https://i.loli.net/2019/12/27/bN5FD7f4QEK3cse.png" alt="可视化"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> string1 <span class="token operator">=</span> <span class="token string">"biubiu"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string2 <span class="token operator">=</span> <span class="token string">"biubiubiu"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?:biubiu|biubiubiu)$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token comment">// 无回溯</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string1<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 有回溯</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string2<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; [ 'biubiu', index: 0, input: 'biubiu', groups: undefined ]</span>
+<span class="token comment">// =&gt; [ 'biubiubiu', index: 0, input: 'biubiubiu', groups: undefined ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 </li>
 </ol>
@@ -838,20 +838,20 @@ console.log(string2.match(regex));
 <li><h4 id="正则表达式的四种操作"><a href="#正则表达式的四种操作" class="headerlink" title="正则表达式的四种操作"></a>正则表达式的四种操作</h4><p> 正则表达式是匹配模式，不管如何使用正则表达式，万变不离其宗，都需要先“匹配”。所谓匹配，就是看目标字符串里是否有满足匹配的子串。因此，“匹配”的本质就是“查找”。</p>
 <ol>
 <li><h5 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h5><p>“验证”就是判断正则表达式有没有匹配，是不是匹配上，是一种判断是否的操作。<br>比如：使用 test 判断一个字符串中是否有数字。</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /\d/;
-const string = "abc123";
-console.log(regex.test(string)); // true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"abc123"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 <li><h5 id="切分"><a href="#切分" class="headerlink" title="切分"></a>切分</h5><p>匹配到字符串，我们就可以进行一些操作，比如切分。“切分”，就是把目标字符串，切成一段一段的。通常可以结合 JavaScript 中的 split 函数进行切分。<br>例如：切分出不同日期格式中的数字</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /\D/;
-console.log("2017/06/26".split(regex));
-console.log("2017.06.26".split(regex));
-console.log("2017-06-26".split(regex));
-// =&gt; [ '2017', '06', '26' ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\D</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"2017/06/26"</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"2017.06.26"</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"2017-06-26"</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; [ '2017', '06', '26' ]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><h5 id="提取"><a href="#提取" class="headerlink" title="提取"></a>提取</h5><p>虽然整体匹配上了，但有时需要提取部分匹配的数据。<br>例如：提取日期中的年月日</p>
-<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const regex = /^(\d{4})\D(\d{2})\D(\d{2})$/;
-const string = "2019-12-31";
-console.log(string.match(regex));
-// ['2019-12-31','2019','12','31',index: 0,input: '2019-12-31',groups: undefined]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(\d{4})\D(\d{2})\D(\d{2})$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"2019-12-31"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// ['2019-12-31','2019','12','31',index: 0,input: '2019-12-31',groups: undefined]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><h5 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h5><p>找，往往不是目的，通常下一步是为了替换。在 JavaScript 中，使用 replace 进行替换。</p>
 </li>
 </ol>
@@ -1406,7 +1406,7 @@ r2<span class="token punctuation">.</span><span class="token function">exec</spa
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">78k</span>
+                        class="white-color">79.1k</span>
             
             
             
