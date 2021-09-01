@@ -520,7 +520,7 @@
 
 <h4 id="增-add"><a href="#增-add" class="headerlink" title="增(add)"></a>增(add)</h4><p>这个方法也和单向链表类似，只不过还需要更新<code>prev</code>指针的指向。这里可以分成两种情况讨论：</p>
 <ol>
-<li>在链表的头节点处插入节点；这种情况下，新插入的节点就是<code>新头节点</code>，此时需要将<code>旧头节点</code>的<code>prev</code>指针指向<code>新头节点</code>，然后将<code>新头节点</code>的<code>next</code>指向<code>旧头结点</code>；如下图所示：<br><img src="add.png" alt="插入头节点"></li>
+<li>在链表的头节点处插入节点；这种情况下，新插入的节点就是<code>新头节点</code>，此时需要将<code>旧头节点</code>的<code>prev</code>指针指向<code>新头节点</code>，然后将<code>新头节点</code>的<code>next</code>指向<code>旧头节点</code>；如下图所示：<br><img src="add.png" alt="插入头节点"></li>
 <li>在其他地方插入节点；这种情况下则找到要插入的索引处的前一个节点，将前一个节点的<code>next</code>指针指向<code>待插入的节点</code>，并将<code>待插入节点</code>的<code>next</code>指针指向<code>前一个节点</code>原本<code>next</code>指向的节点，并将<code>待插入节点</code>的<code>prev</code>指针指向<code>前一个节点</code>；如下图所示：<br><img src="add-other.png" alt="插入其他节点"></li>
 </ol>
 <p>代码如下：</p>
@@ -794,30 +794,29 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/07/15/js-shu-ju-jie-gou-zhi-shuang-xiang-lian-biao/">
+                <a href="/2021/08/30/js-shu-ju-jie-gou-zhi-shuang-xiang-xun-huan-lian-biao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="JS数据结构之双向链表">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="JS数据结构之双向循环链表">
                         
-                        <span class="card-title">JS数据结构之双向链表</span>
+                        <span class="card-title">JS数据结构之双向循环链表</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本篇文章是JavaScript链表数据结构的第三篇，本文主要是用JavaScript实现双向链表这一数据结构以及基础的增、删、改、查等方法。
+                            本篇文章是JavaScript链表数据结构的第四篇，本文主要是用JavaScript实现双向循环链表这一数据结构以及基础的增、删、改、查等方法。
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-15
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-30
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -830,7 +829,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1150,7 +1148,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">79.1k</span>
+                        class="white-color">79.9k</span>
             
             
             

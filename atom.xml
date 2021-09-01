@@ -6,7 +6,7 @@
   <link href="https://cassiellee.github.io/atom.xml" rel="self"/>
   
   <link href="https://cassiellee.github.io/"/>
-  <updated>2021-08-30T11:38:22.602Z</updated>
+  <updated>2021-09-01T12:25:35.003Z</updated>
   <id>https://cassiellee.github.io/</id>
   
   <author>
@@ -17,11 +17,42 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>JS数据结构之双向循环链表</title>
+    <link href="https://cassiellee.github.io/2021/08/30/js-shu-ju-jie-gou-zhi-shuang-xiang-xun-huan-lian-biao/"/>
+    <id>https://cassiellee.github.io/2021/08/30/js-shu-ju-jie-gou-zhi-shuang-xiang-xun-huan-lian-biao/</id>
+    <published>2021-08-30T11:52:31.000Z</published>
+    <updated>2021-09-01T12:25:35.003Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章是&lt;code&gt;JavaScript&lt;/code&gt;实现链表数据结构的第四篇文章，本文的主要内容是——&lt;code&gt;双向循环链表&lt;/code&gt;。之前我们已经实现过&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="数据结构" scheme="https://cassiellee.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+    <category term="javaScript" scheme="https://cassiellee.github.io/tags/javaScript/"/>
+    
+    <category term="数据结构" scheme="https://cassiellee.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="算法" scheme="https://cassiellee.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="链表" scheme="https://cassiellee.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JS数据结构之双向链表</title>
     <link href="https://cassiellee.github.io/2021/07/15/js-shu-ju-jie-gou-zhi-shuang-xiang-lian-biao/"/>
     <id>https://cassiellee.github.io/2021/07/15/js-shu-ju-jie-gou-zhi-shuang-xiang-lian-biao/</id>
     <published>2021-07-15T08:01:14.000Z</published>
-    <updated>2021-08-30T11:38:22.602Z</updated>
+    <updated>2021-08-30T12:22:40.183Z</updated>
     
     
       
@@ -537,33 +568,6 @@
         
         
     <summary type="html">&lt;h3 id=&quot;47-全排列-II&quot;&gt;&lt;a href=&quot;#47-全排列-II&quot; class=&quot;headerlink&quot; title=&quot;47. 全排列 II&quot;&gt;&lt;/a&gt;47. 全排列 II&lt;/h3&gt;&lt;h4 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="leetcode" scheme="https://cassiellee.github.io/categories/leetcode/"/>
-    
-    
-    <category term="刷题" scheme="https://cassiellee.github.io/tags/%E5%88%B7%E9%A2%98/"/>
-    
-    <category term="leetcode" scheme="https://cassiellee.github.io/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>每天一道leetcode(Day 50)</title>
-    <link href="https://cassiellee.github.io/2020/05/17/mei-tian-yi-dao-leetcode-day-50/"/>
-    <id>https://cassiellee.github.io/2020/05/17/mei-tian-yi-dao-leetcode-day-50/</id>
-    <published>2020-05-17T13:35:20.000Z</published>
-    <updated>2021-07-06T09:10:59.282Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;46-全排列&quot;&gt;&lt;a href=&quot;#46-全排列&quot; class=&quot;headerlink&quot; title=&quot;46. 全排列&quot;&gt;&lt;/a&gt;46. 全排列&lt;/h3&gt;&lt;h4 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot;</summary>
         
       
     
