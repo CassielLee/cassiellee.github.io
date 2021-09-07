@@ -184,6 +184,33 @@
     
     
     <entry>
+      <title>每天一道leetcode(Day 67)</title>
+      <link href="/2021/06/03/mei-tian-yi-dao-leetcode-day-67/"/>
+      <url>/2021/06/03/mei-tian-yi-dao-leetcode-day-67/</url>
+      
+        <content type="html"><![CDATA[<h3 id="剑指-Offer-14-I-剪绳子"><a href="#剑指-Offer-14-I-剪绳子" class="headerlink" title="剑指 Offer 14- I. 剪绳子"></a>剑指 Offer 14- I. 剪绳子</h3><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n 都是整数，n&gt;1 并且 m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m-1] 。请问 k[0]*k[1]…*k[m-1] 可能的最大乘积是多少？例如，当绳子的长度是 8 时，我们把它剪成长度分别为 2、3、3 的三段，此时得到的最大乘积是 18。</p><h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><ul><li>示例 1：</li></ul><pre class="line-numbers language-none"><code class="language-none">输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><ul><li>示例 2：</li></ul><pre class="line-numbers language-none"><code class="language-none">输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>本题思路：<strong>动态规划</strong></p><p>本题想要求长度为 <code>n</code> 的绳子，所以先得出状态转移方程；这里我们用数组 <code>dp[n]</code>来表示长度为 <code>n</code> 的绳子截取后的最大乘积；</p><ol><li>初始化数组 <code>dp[n]</code>，数组下标为<code>i(1&lt;i&lt;=m)</code>，由于当 <code>i</code> 为 <code>2</code> 时，我们已经知道值为 <code>1</code>，所以 <code>dp[2]=1</code>;</li><li>当 <code>i&gt;2</code> 时，讨论截取绳子的情况，假设当前截取的长度为 j，</li></ol><ul><li>若 <code>j=1</code>，则 <code>dp[i] = 1 * dp[i-1]</code>，此时<code>dp[i]</code>在<code>dp[i-1]</code>的基础上没有任何增加，因此不用考虑<code>j=1</code>的情况；</li><li>由上步可知<code>j</code>的取值范围为<code>[2,i)</code>，当<code>j&gt;=2</code>,时，截取了<code>j</code>的长度之后，绳子剩余的长度为<code>i-j</code>，此时剩余的长度可以选择继续截取或者是不截取，若继续截取则<code>dp[i]=j*dp[i-j]</code>；若不截取，则绳子只有两段，此时<code>dp[i] = j*(i-j)</code>；最终 dp[i]的值则是在 j 的循环中取得最大值即可：<code>dp[i] = Math.max(dp[i],j*(i-j),j*dp[i-j])(2=&lt;j&lt;i)</code>;</li><li>根据上一步循环，结束之后返回<code>dp[n]</code>即可；</li></ul><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/** * @param {number} n * @return {number} */</span><span class="token keyword">var</span> <span class="token function-variable function">cuttingRope</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token keyword">const</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  dp<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>      dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> j <span class="token operator">*</span> <span class="token punctuation">(</span>i <span class="token operator">-</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> j <span class="token operator">*</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span>  <span class="token punctuation">}</span>  <span class="token keyword">return</span> dp<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://leetcode-cn.com/problems/jian-sheng-zi-lcof/">剑指 Offer 14- I. 剪绳子</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> leetcode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 刷题 </tag>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>每天一道leetcode(Day 66)</title>
       <link href="/2020/06/02/mei-tian-yi-dao-leetcode-day-66/"/>
       <url>/2020/06/02/mei-tian-yi-dao-leetcode-day-66/</url>
